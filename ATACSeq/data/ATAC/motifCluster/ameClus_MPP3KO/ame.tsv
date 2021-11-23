@@ -1,0 +1,26 @@
+rank	motif_DB	motif_ID	motif_alt_ID	consensus	p-value	adj_p-value	E-value	tests	FASTA_max	pos	neg	PWM_min	TP	%TP	FP	%FP
+1	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_13	NEUROD2,OLIG2,OLIG3(...)	CAMCATATGBYR	2.83e-16	1.90e-14	4.36e-13	67	49	49	1029	8.33	15	30.61	8	0.78
+2	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_18	E2F1,YY2	NNATGGCGGCVAA	5.01e-16	4.46e-14	1.03e-12	89	49	49	1029	4.17	16	32.65	12	1.17
+3	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_10	GFI1,Gfi1b	BMAATCACDGCA	1.38e-14	1.01e-12	2.32e-11	73	49	49	1029	12.1	14	28.57	9	0.87
+4	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_5	NFAT5,NFATC1,NFATC2(...)	WKTTTCCAYN	6.49e-11	2.94e-8	6.76e-7	453	49	49	1029	27.6	12	24.49	13	1.26
+5	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_15	Creb5,FOS::JUN(var.2),FOSB::JUN(...)	NSNATGACRTCATYNHTN	1.00e-9	9.40e-8	2.16e-6	94	49	49	1029	12.5	10	20.41	9	0.87
+6	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_20	NKX2-3,NKX2-8,Nkx3-2	WWAACCACTTRAV	3.53e-9	7.80e-7	1.79e-5	221	49	49	1029	18.8	9	18.37	7	0.68
+7	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_4	TEAD1,TEAD2,TEAD4	NNACATTCCAGNN	1.18e-7	2.04e-5	4.70e-4	173	49	49	1029	3.21	15	30.61	56	5.44
+8	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	MA0479.1	FOXH1	BNSAATCCACA	4.06e-7	4.59e-5	1.06e-3	113	49	49	1029	4.11	14	28.57	53	5.15
+9	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_22	Atf1,Gmeb1	NNNWRTGACGTAMVVDV	7.64e-7	7.49e-5	1.72e-3	98	49	49	1029	1.26	15	30.61	66	6.41
+10	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	MA0600.2	RFX2	SGTTGCCATGGYAACS	1.74e-5	1.57e-4	3.60e-3	9	49	49	1029	2.81	5	10.20	4	0.39
+11	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	MA0067.1	Pax2	NGTCAYKB	4.06e-7	1.76e-4	4.05e-3	433	49	49	1029	2.37	14	28.57	53	5.15
+12	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_21	Arnt,ARNT::HIF1A	GCACGTVB	5.29e-5	9.85e-3	2.26e-1	187	49	49	1029	2.07	13	26.53	73	7.09
+13	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_9	Dlx1,POU6F1(var.2)	NNMTMATTAHN	3.43e-5	1.28e-2	2.95e-1	377	49	49	1029	2.53	15	30.61	93	9.04
+14	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	MA1616.1	Prdm15	NRGAAAACCTGGAVN	6.71e-5	1.91e-2	4.38e-1	287	49	49	1029	4.34	15	30.61	99	9.62
+15	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	MA0602.1	Arid5a	SYAATATTGVDANH	1.01e-4	2.12e-2	4.89e-1	213	49	49	1029	1.75	16	32.65	116	11.27
+16	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_1	IRF1,IRF7,STAT1::STAT2(...)	NTTHWSTTTCWSTTTCNNTTT	4.81e-5	2.33e-2	5.37e-1	491	49	49	1029	58	20	40.82	164	15.94
+17	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	MA0506.1	NRF1	GCGCVTGCGCR	3.37e-4	3.34e-2	7.69e-1	101	49	49	1029	18.5	5	10.20	10	0.97
+18	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_2	SIX1,SIX2	NNCTGAAACCTGATMY	1.51e-4	3.55e-2	8.16e-1	240	49	49	1029	3.24	14	28.57	94	9.14
+19	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	MA1536.1	NR2C2(var.2)	RRGGTCAN	8.85e-5	3.89e-2	8.94e-1	448	49	49	1029	9.71	3	6.12	0	0.00
+20	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_16	ATF4,CEBPA,CEBPB(...)	NDATKRTGCAATHNH	3.69e-4	6.91e-2	1.59e0	194	49	49	1029	6.9	8	16.33	34	3.30
+21	../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme	Cluster_8	GSC2,OTX2,PITX3	NNYTAATCCYHN	5.16e-4	7.54e-2	1.73e0	152	49	49	1029	2.18	10	20.41	57	5.54
+
+# AME (Analysis of Motif Enrichment): Version 5.1.1 compiled on May 15 2020 at 15:14:37
+# The format of this file is described at http://meme-suite.org//doc/ame-output-format.html.
+# ame --o ../../data/ATAC/motifCluster/ameClus_MPP3KO --control --shuffle-- ../../data/ATAC/output/MPP3_KO.fna ../../data/ATAC/motifCluster/MPP3_KO_clus/MPP3_KO_clus_consensus_motifs.meme

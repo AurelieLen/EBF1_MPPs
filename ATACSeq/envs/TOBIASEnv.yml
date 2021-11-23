@@ -1,0 +1,12 @@
+name: TOBIASenv
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - tobias=0.12.11
+  - snakemake=6.7.0
+  - pandas=1.2.5
+  - pip=21.2.4
+  - pip:
+    - gimmemotifs==0.16.0

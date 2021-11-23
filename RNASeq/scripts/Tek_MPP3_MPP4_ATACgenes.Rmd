@@ -1,0 +1,168 @@
+---
+title: "Tek_MPP3_MPP4_ATACgenes"
+author: "Aurelie Lenaerts"
+date: "09/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## load libraries
+
+Load the libraries and data required in this project.
+```{r libraries, message=FALSE}
+library("DESeq2")
+library("ggplot2")
+library("ashr")
+library("tidyr")
+library("ggrastr")
+```
+## Chapter 2
+
+No filtering for genes with counts above average expression threshold, in order to take into account the lowly expressed genes that are associated with EBF1-dependent accessible sites in MPP3 cells. 
+```{r load data}
+MPP3_rawcounts <- read.delim("../data/Tek_MPP3_rawcounts.tsv")
+MPP4_rawcounts <- read.delim("../data/Tek_MPP4_rawcounts.tsv")
+genes.filtered <- read.delim("../data/genes.filtered.t2g", header=FALSE)
+```
+
+```{r count matrix}
+rawcounts_matrix <- merge(MPP3_rawcounts, MPP4_rawcounts)
+rownames(rawcounts_matrix) <- rawcounts_matrix[, "X"]
+rawcounts_matrix <- rawcounts_matrix[, colnames(rawcounts_matrix) != "X"]
+rawcounts_matrix <- as.matrix(rawcounts_matrix)
+dim(rawcounts_matrix)
+colnames(rawcounts_matrix) <- c("MPP3_KO1", "MPP3_KO2", "MPP3_KO3", "MPP3_KO4", "MPP3_WT1", "MPP3_WT2", "MPP3_WT3", "MPP3_WT4", "MPP4_KO1", "MPP4_KO2", "MPP4_KO3", "MPP4_KO4", "MPP4_WT1", "MPP4_WT2", "MPP4_WT3", "MPP4_WT4")
+```
+
+Create samplesheet and rowdata.
+```{r samplesheet}
+samplesheet <- data.frame(sampleName = colnames(rawcounts_matrix))
+rownames(samplesheet) <- samplesheet$sampleName
+state <- c(rep(0,length(samplesheet$sampleName)))
+for (i in 1:length(state))
+{
+  state[i] <- substr(as.character(samplesheet$sampleName[i]),1,nchar(as.character(samplesheet$sampleName[i]))-1)
+}
+samplesheet$state <- state
+samplesheet
+length(unique(samplesheet$state))
+stopifnot(all(rownames(samplesheet) == colnames(rawcounts_matrix)))
+```
+
+```{r rowdata}
+rowdata_nofilter <- data.frame(ENSEMBL = rownames(rawcounts_matrix))
+rowdata_nofilter = merge(rowdata_nofilter, genes.filtered,
+                by.x = "ENSEMBL", by.y = "V2",
+                all.x = TRUE, all.y = FALSE, sort = FALSE)
+rowdata_nofilter <- rowdata_nofilter[!duplicated(rowdata_nofilter$ENSEMBL),]
+
+rawcounts_matrix = rawcounts_matrix[order(rownames(rawcounts_matrix)),]
+rowdata_nofilter = rowdata_nofilter[order(rowdata_nofilter$ENSEMBL),]
+stopifnot(all(rowdata_nofilter$ENSEMBL == rownames(rawcounts_matrix)))
+
+rownames(rawcounts_matrix) <- rowdata_nofilter$V3
+
+rownames(rawcounts_matrix)[rownames(rawcounts_matrix) == ""] 
+all(samplesheet$sampleName == colnames(rawcounts_matrix))
+```
+
+## Chapter 3
+
+Run DEseq without average threshold filtering. 
+
+```{r deseq, message=FALSE, warning=FALSE}
+dds_M3M4_nofilter <- DESeqDataSetFromMatrix(rawcounts_matrix, samplesheet, design= ~ state, rowData = rowdata_nofilter)
+nrow(dds_M3M4_nofilter)
+dds_M3M4_nofilter <- DESeq(dds_M3M4_nofilter)
+```
+
+```{r relevel}
+## Relevel the comparisons
+dds_M3M4_nofilter$state <- factor(dds_M3M4_nofilter$state, levels = c("MPP3_WT","MPP3_KO","MPP4_WT","MPP4_KO"))
+dds_M3M4_nofilter$state
+dds_M3M4_nofilter <- nbinomWaldTest(dds_M3M4_nofilter)
+resultsNames(dds_M3M4_nofilter)
+```
+
+```{r DEseq results, message=FALSE}
+res_M3KOvWT_nofilter <- lfcShrink(dds_M3M4_nofilter, contrast = c("state", "MPP3_KO", "MPP3_WT"), type = "ashr")
+res_M4KOvWT_nofilter <- lfcShrink(dds_M3M4_nofilter, contrast = c("state", "MPP4_KO", "MPP4_WT"), type = "ashr")
+```
+
+```{r normalised counts}
+norm_counts_M3M4_nofilter <- counts(dds_M3M4_nofilter, normalized = TRUE)
+norm_counts_M3M4_nofilter <- round(norm_counts_M3M4_nofilter, 1)
+```
+## Chapter 4
+
+MAplot of EBF1-dependent accessible sites in MPP3s.
+
+```{r MPP3 ATAC genes}
+MPP3_WTatacpeaks_genes <- read.table("../data/MPP3_WTpeaks_genes.txt", quote="\"", comment.char="")
+
+norm_counts_M3M4_nofilter_atac <- as.data.frame(norm_counts_M3M4_nofilter)
+norm_counts_M3M4_nofilter_atac$meanM3 <- rowMeans(norm_counts_M3M4_nofilter_atac[,1:8])
+norm_counts_M3M4_nofilter_atac$meanM4 <- rowMeans(norm_counts_M3M4_nofilter_atac[,9:16])
+
+norm_counts_M3M4_nofilter_atac$factor <- 'nonEBF'
+norm_counts_M3M4_nofilter_atac[rownames(norm_counts_M3M4_nofilter_atac) 
+                               %in% MPP3_WTatacpeaks_genes$V1,]$factor <- 'EBF'
+```
+
+```{r MPP3 ATAC genes}
+res_M3KOvWT_nofilter <- as.data.frame(res_M3KOvWT_nofilter)
+res_M4KOvWT_nofilter <- as.data.frame(res_M4KOvWT_nofilter)
+
+atac_res_M3 <- merge(res_M3KOvWT_nofilter,norm_counts_M3M4_nofilter_atac, by = "row.names", all = TRUE)
+atac_res_M4 <- merge(res_M4KOvWT_nofilter,norm_counts_M3M4_nofilter_atac, by = "row.names", all = TRUE)
+
+rownames(atac_res_M3) <- atac_res_M3[, "Row.names"]
+rownames(atac_res_M4) <- atac_res_M4[, "Row.names"]
+
+#set |log2FC| to max. 2
+
+atac_res_M3$log2FoldChangeADJ <- atac_res_M3$log2FoldChange
+atac_res_M3$log2FoldChangeADJ[atac_res_M3$log2FoldChangeADJ > 2] <- 2
+atac_res_M3$log2FoldChangeADJ[atac_res_M3$log2FoldChangeADJ < -2] <- -2
+
+atac_res_M4$log2FoldChangeADJ <- atac_res_M4$log2FoldChange
+atac_res_M4$log2FoldChangeADJ[atac_res_M4$log2FoldChangeADJ > 2] <- 2
+atac_res_M4$log2FoldChangeADJ[atac_res_M4$log2FoldChangeADJ < -2] <- -2
+```
+
+How many of the MPP3 atac genes are weakly expressed? 
+```{r proportion of weak gene expr}
+EBF_M3_atac <- atac_res_M3[atac_res_M3$factor=='EBF',]
+nrow(EBF_M3_atac)
+nrow(EBF_M3_atac[EBF_M3_atac$meanM3 <= 100,])
+
+EBF_M4_atac <- atac_res_M4[atac_res_M4$factor=='EBF',]
+nrow(EBF_M4_atac)
+nrow(EBF_M4_atac[EBF_M4_atac$meanM4 <= 100,])
+```
+
+```{r M3 MAplot, message=FALSE}
+M3_atac_maplot <- ggplot(data=atac_res_M3[rev(order(atac_res_M3$factor)),]) +
+  geom_point_rast(aes(y=log2FoldChangeADJ, x=log10(meanM3 +1), col=factor), alpha=0.5, size=3.75,raster.dpi = 600) +
+  scale_x_continuous(limits = c(0,6), breaks = c(0, 2, 4, 6)) +
+  theme_minimal() + 
+  theme(axis.line=element_line(colour="black"), axis.ticks = element_line(colour = "black"), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  scale_color_manual(values = c("#E87B2A","grey"))
+print(M3_atac_maplot)
+ggsave("../figures/M3_atac_maplot.pdf", dpi=300)
+```
+
+
+```{r MAplot, message=FALSE}
+M4_atac_maplot <- ggplot(data=atac_res_M4[rev(order(atac_res_M4$factor)),]) +
+  geom_point_rast(aes(y=log2FoldChangeADJ, x=log10(meanM4+1), col=factor), alpha=0.5, size=3.75, raster.dpi = 600) +
+  scale_x_continuous(limits = c(0,6), breaks = c(0, 2, 4, 6)) +
+  theme_minimal() + 
+  theme(axis.line=element_line(colour="black"), axis.ticks = element_line(colour = "black"), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  scale_color_manual(values = c("#E87B2A","grey"))
+print(M4_atac_maplot)
+ggsave("../figures/M4_atac_maplot.pdf", dpi=300)
+```

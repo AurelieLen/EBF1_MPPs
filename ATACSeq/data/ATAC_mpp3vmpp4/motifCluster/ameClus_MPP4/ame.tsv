@@ -1,0 +1,49 @@
+rank	motif_DB	motif_ID	motif_alt_ID	consensus	p-value	adj_p-value	E-value	tests	FASTA_max	pos	neg	PWM_min	TP	%TP	FP	%FP
+1	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_69	EHF,ELF1,ELF3(...)	NNBCACTTCCTGTTNN	1.22e-923	1.01e-919	7.26e-918	8261	8069	8069	8069	1.37	5686	70.47	1662	20.60
+2	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_71	SPI1,SPIB,ZKSCAN5	NDRAAAGAGGAAGTGARANN	1.20e-812	8.84e-809	6.36e-807	7349	8069	8069	8069	1.11	5566	68.98	1781	22.07
+3	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0687.1	SPIC	HAAAAGVGGAAGTA	7.67e-388	3.35e-384	2.41e-382	4367	8069	8069	8069	1.5	2990	37.06	782	9.69
+4	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_55	RUNX1,RUNX2,RUNX3	NNTTGWGGTTWN	4.72e-197	3.05e-193	2.20e-191	6468	8069	8069	8069	1.37	3622	44.89	1835	22.74
+5	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_53	Atoh1,ATOH1(var.2),Bhlha15(...)	NNVACAKMTGGNNN	5.06e-125	3.55e-121	2.56e-119	7010	8069	8069	8069	1.54	3739	46.34	2284	28.31
+6	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA1647.1	PRDM4	DDCTGTTTCWN	3.83e-109	2.49e-105	1.80e-103	6506	8069	8069	8069	1.02	3941	48.84	2563	31.76
+7	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_24	MEF2A,MEF2B,MEF2C(...)	DDDCTAAAAATAGMHH	2.07e-105	4.37e-102	3.14e-100	2108	8069	8069	8069	2.19	1072	13.29	315	3.90
+8	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0508.3	PRDM1	YNCTTTCTCTH	8.03e-78	4.58e-74	3.30e-72	5700	8069	8069	8069	1.05	3361	41.65	2236	27.71
+9	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_23	Arid3a,Arid3b,TBP	NVBBNBWATTAATAB	7.49e-74	2.11e-70	1.52e-68	2824	8069	8069	8069	1.02	1844	22.85	974	12.07
+10	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_49	OSR1,OSR2	NNGCTTCTGTNN	3.20e-68	2.08e-64	1.50e-62	6508	8069	8069	8069	1.02	3791	46.98	2707	33.55
+11	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0139.1	CTCF	YGRCCASYAGRKGGCRSYR	6.82e-63	1.21e-59	8.69e-58	1771	8069	8069	8069	48.1	333	4.13	36	0.45
+12	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_54	ASCL1,Ascl2,BHLHA15(var.2)(...)	VNVACAGSTGYNNN	1.04e-61	7.26e-58	5.23e-56	6974	8069	8069	8069	5.96	1777	22.02	989	12.26
+13	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_43	MEIS1(var.2),MEIS2(var.2),PBX1(...)	DNHCATAAATCAHNN	6.24e-56	1.21e-52	8.75e-51	1947	8069	8069	8069	2.58	752	9.32	273	3.38
+14	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_68	IRF1,IRF2,IRF3(...)	TRGTTTCGGTTTCGDTTYYSNTTT	3.56e-53	1.34e-50	9.66e-49	377	8069	8069	8069	1.7	328	4.06	49	0.61
+15	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0073.1	RREB1	CCCCMAAMCAMCCMCMMMCV	7.22e-51	1.36e-47	9.82e-46	1889	8069	8069	8069	1.19	1248	15.47	641	7.94
+16	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_52	ATOH7,BHLHE22,BHLHE23(...)	NAMCATRTGBYN	7.61e-46	2.61e-42	1.88e-40	3434	8069	8069	8069	1.04	2063	25.57	1331	16.50
+17	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_1	FOXA1,FOXA2,FOXA3(...)	DNWRWGTAAACAWNNNM	1.13e-43	3.20e-40	2.31e-38	2823	8069	8069	8069	1.12	1643	20.36	996	12.34
+18	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_64	RFX1,RFX2,RFX3(...)	NNGTTGCYATGGYAACS	1.35e-42	1.05e-39	7.59e-38	781	8069	8069	8069	2.97	394	4.88	103	1.28
+19	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_21	CDX1,CDX2,CDX4(...)	DDSCAATAAAAHWW	1.14e-33	2.55e-30	1.84e-28	2229	8069	8069	8069	1.04	1359	16.84	836	10.36
+20	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0850.1	FOXP3	RTAAACA	5.46e-31	2.73e-27	1.96e-25	4996	8069	8069	8069	1.04	2735	33.90	2066	25.60
+21	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0041.1	Foxd3	GWWTGTTTDTTT	1.66e-27	4.82e-24	3.47e-22	2912	8069	8069	8069	1.07	1693	20.98	1169	14.49
+22	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0619.1	LIN54	DTTTRAATH	1.21e-24	3.83e-21	2.76e-19	3155	8069	8069	8069	1.28	1710	21.19	1212	15.02
+23	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_29	POU4F1,POU4F3	ATGMATAATTAATGAR	4.72e-23	4.97e-20	3.58e-18	1053	8069	8069	8069	1.07	676	8.38	370	4.59
+24	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0130.1	ZNF354C	MTCCAC	8.98e-21	8.36e-17	6.02e-15	9309	8069	8069	8069	1.01	4936	61.17	4353	53.95
+25	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_17	BCL6,STAT1,STAT3(...)	NYNNYTTCYDGGAADNNR	1.18e-18	3.78e-15	2.72e-13	3200	8069	8069	8069	1.15	1695	21.01	1265	15.68
+26	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0018.4	CREB1	NNRTGATGTCAYN	7.35e-18	2.28e-14	1.64e-12	3096	8069	8069	8069	2.51	842	10.43	539	6.68
+27	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_40	POU2F1,POU3F1,POU3F3(...)	CWTTAWTATGCAAATNW	3.10e-15	3.84e-12	2.77e-10	1238	8069	8069	8069	2.13	495	6.13	283	3.51
+28	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_36	BACH1,BATF,BATF::JUN(...)	NNATGAGTCATHNNYY	4.85e-14	1.34e-10	9.62e-9	2757	8069	8069	8069	7.35	583	7.23	361	4.47
+29	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA1125.1	ZNF384	DNWMAAAAAAAA	1.19e-13	3.96e-10	2.85e-8	3336	8069	8069	8069	147	501	6.21	299	3.71
+30	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0067.1	Pax2	NGTCAYKB	3.35e-13	1.77e-9	1.28e-7	5284	8069	8069	8069	1.57	1092	13.53	798	9.89
+31	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_46	PKNOX2,TGIF2,TGIF2LX(...)	TGACAGSTGTCA	5.31e-12	8.12e-9	5.85e-7	1529	8069	8069	8069	1.79	677	8.39	456	5.65
+32	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_16	NFAT5,NFATC1,NFATC2(...)	WKTTTCCAYN	5.00e-11	2.10e-7	1.52e-5	4212	8069	8069	8069	1.02	2275	28.19	1914	23.72
+33	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_32	Hoxa11,HOXA9,HOXB9(...)	RGTCGTAAAAHT	2.85e-9	1.87e-6	1.34e-4	655	8069	8069	8069	4.46	163	2.02	74	0.92
+34	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0111.1	Spz1	AGGGTWWCAGC	2.21e-9	7.59e-6	5.47e-4	3428	8069	8069	8069	1.07	1809	22.42	1507	18.68
+35	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0135.1	Lhx3	WAATTAATTAWYY	2.97e-8	1.39e-5	1.00e-3	468	8069	8069	8069	1.05	292	3.62	176	2.18
+36	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0513.1	SMAD2::SMAD3::SMAD4	CTGTCTGDCACCT	1.04e-8	4.49e-5	3.23e-3	4300	8069	8069	8069	1.35	1997	24.75	1697	21.03
+37	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_7	Dmrt1,DMRT3,DMRTA2(...)	GHTACAAWGTADCAATT	4.28e-8	6.15e-5	4.43e-3	1436	8069	8069	8069	2.18	504	6.25	351	4.35
+38	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA0520.1	Stat6	BDBTTCCWSAGAAVY	1.70e-7	3.21e-4	2.31e-2	1891	8069	8069	8069	1.04	1048	12.99	839	10.40
+39	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_61	HSF2,HSF4,ZBTB12	TTCTRGAACNTTC	9.50e-7	1.53e-3	1.10e-1	1610	8069	8069	8069	111	41	0.51	8	0.10
+40	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_28	DUX4,PHOX2A,PHOX2B(...)	WWWTAATTTRATYAWW	2.38e-6	2.90e-3	2.09e-1	1222	8069	8069	8069	1.12	656	8.13	505	6.26
+41	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_27	BARX2,HNF1A	DRWWAAYMATTAMCN	3.30e-6	4.72e-3	3.40e-1	1431	8069	8069	8069	1.22	694	8.60	541	6.70
+42	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA1554.1	RFX7	CGTTGCYAY	1.76e-6	5.09e-3	3.66e-1	2896	8069	8069	8069	1.02	1545	19.15	1319	16.35
+43	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	MA1124.1	ZNF24	CATTCATTCATTC	1.52e-5	1.21e-2	8.75e-1	803	8069	8069	8069	2.15	299	3.71	206	2.55
+44	../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme	Cluster_4	SIX1,SIX2	NNCTGAAACCTGATMY	2.90e-5	6.79e-2	4.89e0	2422	8069	8069	8069	1.06	1297	16.07	1114	13.81
+
+# AME (Analysis of Motif Enrichment): Version 5.1.1 compiled on May 15 2020 at 15:14:37
+# The format of this file is described at http://meme-suite.org//doc/ame-output-format.html.
+# ame --o ../../data/ATAC_mpp3vmpp4/motifCluster/ameClus_MPP4 --control --shuffle-- ../../data/ATAC_mpp3vmpp4/output/MPP4.fna ../../data/ATAC_mpp3vmpp4/motifCluster/MPP4_clus/MPP4_clus_consensus_motifs.meme

@@ -1,0 +1,185 @@
+Cluster_1:
+- MPP4_Cluster_28 DUX4,PHOX2A,PHOX2B(...)
+- MPP4_MA0135.1 Lhx3
+Cluster_10:
+- MPP4_MA0602.1 Arid5a
+Cluster_11:
+- MPP4_Cluster_29 POU4F1,POU4F3
+Cluster_12:
+- MPP3_Cluster_2 POU3F4,POU5F1B
+- MPP4_Cluster_40 POU2F1,POU3F1,POU3F3(...)
+Cluster_13:
+- MPP4_MA0619.1 LIN54
+Cluster_14:
+- MPP4_Cluster_9 TCF7,TCF7L1,TCF7L2
+Cluster_15:
+- MPP3_Cluster_3 FOXG1,FOXI1,FOXL1(...)
+- MPP4_Cluster_1 FOXA1,FOXA2,FOXA3(...)
+- MPP4_MA0850.1 FOXP3
+Cluster_16:
+- MPP4_MA0041.1 Foxd3
+Cluster_17:
+- MPP4_Cluster_34 ALX3,ARGFX,Dlx2(...)
+- MPP4_Cluster_26 BARHL2,Dlx1,ESX1(...)
+- MPP4_Cluster_33 BARX1,EMX1,EMX2(...)
+- MPP4_Cluster_35 HOXA2,HOXA6,HOXB4(...)
+Cluster_18:
+- MPP4_Cluster_27 BARX2,HNF1A
+Cluster_19:
+- MPP4_Cluster_21 CDX1,CDX2,CDX4(...)
+- MPP4_Cluster_32 Hoxa11,HOXA9,HOXB9(...)
+Cluster_2:
+- MPP3_MA1480.1 DPRX
+Cluster_20:
+- MPP4_Cluster_43 MEIS1(var.2),MEIS2(var.2),PBX1(...)
+- MPP4_Cluster_42 ONECUT1,ONECUT2,ONECUT3
+Cluster_21:
+- MPP4_Cluster_50 MYB,ZKSCAN1
+- MPP4_Cluster_49 OSR1,OSR2
+Cluster_22:
+- MPP4_Cluster_8 Rhox11,ZBTB32
+Cluster_23:
+- MPP4_Cluster_19 SOX10,SOX13,SOX15(...)
+- MPP4_Cluster_20 SOX12,Sox5,SOX9(...)
+Cluster_24:
+- MPP3_MA1563.1 SOX18
+Cluster_25:
+- MPP3_Cluster_18 MYB,OVOL2
+Cluster_26:
+- MPP3_Cluster_23 ELF2,ELK1,ELK3(...)
+- MPP4_Cluster_69 EHF,ELF1,ELF3(...)
+- MPP4_Cluster_71 SPI1,SPIB,ZKSCAN5
+- MPP4_MA0687.1 SPIC
+Cluster_27:
+- MPP4_Cluster_68 IRF1,IRF2,IRF3(...)
+Cluster_28:
+- MPP4_MA1647.1 PRDM4
+Cluster_29:
+- MPP4_Cluster_4 SIX1,SIX2
+Cluster_3:
+- MPP3_Cluster_4 GATA1,GATA1::TAL1,GATA2(...)
+Cluster_30:
+- MPP4_Cluster_47 MEIS1,MEIS2,MEIS3(...)
+- MPP4_MA0513.1 SMAD2::SMAD3::SMAD4
+Cluster_31:
+- MPP4_MA0508.3 PRDM1
+Cluster_32:
+- MPP4_Cluster_64 RFX1,RFX2,RFX3(...)
+Cluster_33:
+- MPP4_MA1554.1 RFX7
+Cluster_34:
+- MPP4_Cluster_66 HMBOX1,ZNF652
+Cluster_35:
+- MPP4_MA0111.1 Spz1
+Cluster_36:
+- MPP3_Cluster_14 NR2C1,NR2C2(var.2)
+- MPP4_Cluster_12 NR1I3,VDR
+- MPP4_Cluster_15 Nr2e1,NR4A1
+- MPP4_Cluster_14 RORB,RORC
+Cluster_37:
+- MPP3_Cluster_1 CEBPA,CEBPB,CEBPD(...)
+- MPP4_MA0018.4 CREB1
+Cluster_38:
+- MPP3_MA0067.1 Pax2
+- MPP4_MA0067.1 Pax2
+Cluster_39:
+- MPP3_Cluster_16 PAX1,PAX5,PAX9
+Cluster_4:
+- MPP3_Cluster_6 NFYA,NFYB,NFYC
+- MPP4_Cluster_41 GFI1,Gfi1b
+Cluster_40:
+- MPP3_Cluster_10 Arnt,ARNT2,Arntl(...)
+- MPP3_Cluster_11 ARNT::HIF1A,HES1,HES2(...)
+- MPP3_Cluster_9 Creb3l2,CREB3L4
+Cluster_41:
+- MPP3_MA0006.1 Ahr::Arnt
+- MPP4_Cluster_58 EOMES,MGA,TBR1(...)
+Cluster_42:
+- MPP3_MA0527.1 ZBTB33
+Cluster_43:
+- MPP4_Cluster_55 RUNX1,RUNX2,RUNX3
+- MPP4_MA0130.1 ZNF354C
+Cluster_44:
+- MPP4_MA0073.1 RREB1
+Cluster_45:
+- MPP4_MA1520.1 MAF
+- MPP4_Cluster_38 Mafb,MAFF,MAFG(...)
+Cluster_46:
+- MPP4_Cluster_36 BACH1,BATF,BATF::JUN(...)
+Cluster_47:
+- MPP3_Cluster_8 BHLHE22(var.2),SNAI1,Tcf12(...)
+- MPP4_Cluster_54 ASCL1,Ascl2,BHLHA15(var.2)(...)
+- MPP4_Cluster_5 GRHL2,SCRT1,SCRT2
+Cluster_48:
+- MPP4_Cluster_53 Atoh1,ATOH1(var.2),Bhlha15(...)
+- MPP4_Cluster_52 ATOH7,BHLHE22,BHLHE23(...)
+Cluster_49:
+- MPP4_Cluster_46 PKNOX2,TGIF2,TGIF2LX(...)
+Cluster_5:
+- MPP3_MA1523.1 MSANTD3
+- MPP4_Cluster_59 ISL2,MSANTD3,NKX2-2(...)
+Cluster_50:
+- MPP4_Cluster_62 Hand1::Tcf3,Smad4
+- MPP4_Cluster_61 HSF2,HSF4,ZBTB12
+Cluster_51:
+- MPP4_MA0164.1 Nr2e3
+Cluster_52:
+- MPP3_Cluster_22 REL,RELA
+Cluster_53:
+- MPP4_Cluster_44 TEAD1,TEAD2,TEAD3(...)
+Cluster_54:
+- MPP3_MA1116.1 RBPJ
+- MPP4_Cluster_16 NFAT5,NFATC1,NFATC2(...)
+Cluster_55:
+- MPP4_Cluster_17 BCL6,STAT1,STAT3(...)
+- MPP4_MA0520.1 Stat6
+Cluster_56:
+- MPP3_Cluster_15 HIC2,THAP1
+- MPP4_Cluster_45 Hic1,NFIA,NFIC
+Cluster_57:
+- MPP3_MA1573.1 THAP11
+Cluster_58:
+- MPP3_Cluster_38 Zfx,ZNF460
+Cluster_59:
+- MPP3_Cluster_29 Klf1,Klf12,KLF2(...)
+- MPP3_Cluster_28 KLF10,KLF11,KLF13(...)
+- MPP3_MA1599.1 ZNF682
+Cluster_6:
+- MPP4_MA1124.1 ZNF24
+Cluster_60:
+- MPP3_Cluster_40 EGR1,EGR2,EGR3(...)
+- MPP3_Cluster_33 Wt1,Znf281,ZNF740
+Cluster_61:
+- MPP3_Cluster_34 E2F6,KLF15,TFDP1
+- MPP3_Cluster_32 MAZ,ZNF148,ZNF263
+Cluster_62:
+- MPP3_Cluster_13 YY1,YY2,ZFP42
+Cluster_63:
+- MPP4_MA1589.1 ZNF140
+Cluster_64:
+- MPP3_Cluster_41 HINFP,ZBTB14
+- MPP3_MA0506.1 NRF1
+Cluster_65:
+- MPP3_Cluster_35 E2F1,E2F2,E2F4(...)
+Cluster_66:
+- MPP3_MA1583.1 ZFP57
+Cluster_67:
+- MPP3_Cluster_39 CTCFL,Plagl1,PLAGL2
+- MPP4_MA0139.1 CTCF
+Cluster_68:
+- MPP3_Cluster_31 GLIS2,ZIC3,ZIC4
+Cluster_69:
+- MPP3_Cluster_25 EBF1,Ebf2,EBF3
+- MPP3_Cluster_26 TFAP2A,TFAP2A(var.2),TFAP2B(...)
+Cluster_7:
+- MPP4_Cluster_7 Dmrt1,DMRT3,DMRTA2(...)
+Cluster_70:
+- MPP3_Cluster_24 TFAP2A(var.3),TFAP2B(var.3),TFAP2C(var.3)
+Cluster_71:
+- MPP3_MA0163.1 PLAG1
+Cluster_8:
+- MPP4_MA0109.1 HLTF
+Cluster_9:
+- MPP4_Cluster_23 Arid3a,Arid3b,TBP
+- MPP4_Cluster_24 MEF2A,MEF2B,MEF2C(...)
+- MPP4_MA1125.1 ZNF384

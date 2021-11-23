@@ -1,0 +1,1018 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:cis="http://zlab.bu.edu/schema/cisml" xmlns:fimo="http://noble.gs.washington.edu/schema/cisml" xmlns:mem="http://noble.gs.washington.edu/meme">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>FIMO Results</title>
+<style type="text/css">
+td.left {text-align: left;}
+td.right {text-align: right; padding-right: 1cm;}
+</style>
+</head>
+<body color="#000000">
+<a name="top_buttons"></a>
+<hr>
+<table summary="buttons" align="left" cellspacing="0">
+<tr>
+<td bgcolor="#00FFFF"><a href="#database_and_motifs"><b>Database and Motifs</b></a></td>
+<td bgcolor="#DDFFDD"><a href="#sec_i"><b>High-scoring Motif Occurences</b></a></td>
+<td bgcolor="#DDDDFF"><a href="#debugging_information"><b>Debugging Information</b></a></td>
+<td bgcolor="#FFDD00"><a href="fimo.tsv""><b>Results in TSV Format</b></a></td>
+<td bgcolor="#FFDDFF"><a href="fimo.gff""><b>Results in GFF3 Format</b></a></td>
+</tr>
+</table>
+<br/>
+<br/>
+<hr/>
+<center><big><b>FIMO - Motif search tool</b></big></center>
+<hr>
+<p>
+FIMO version 5.3.0, (Release date: Wed Nov 25 19:19:29 2020 -0800)
+</p>
+<p>
+For further information on how to interpret these results please access <a href="http://meme-suite.org/doc/fimo-output-format.html">http://meme-suite.org/doc/fimo-output-format.html</a>.<br>
+To get a copy of the FIMO software please access <a href="http://meme-suite.org">http://meme-suite.org</a>
+
+</p>
+<p>If you use FIMO in your research, please cite the following paper:<br>
+Charles E. Grant, Timothy L. Bailey, and William Stafford Noble,
+"FIMO: Scanning for occurrences of a given motif",
+<i>Bioinformatics</i>, <b>27</b>(7):1017-1018, 2011.
+<a href="http://bioinformatics.oxfordjournals.org/content/27/7/1017">[full text]</a></p>
+<hr>
+<center><big><b><a name="database_and_motifs">DATABASE AND MOTIFS</a></b></big></center>
+<hr>
+<div style="padding-left: 0.75in; line-height: 1em; font-family: monospace;">
+<p>
+  DATABASE ../../data/ATAC_mpp3vmpp4/output/MPP4_log2fc1.fna
+  <br />
+  Database contains 3570 sequences, 1368057 residues
+</p>
+<p>
+  MOTIFS ../../LFS/genomeData/singleMotifs/CEBPA_MA0102.2.meme (DNA)
+  <table>
+    <thead>
+      <tr>
+        <th style="border-bottom: 1px dashed;">MOTIF</th>
+        <th style="border-bottom: 1px dashed; padding-left: 1em;">WIDTH</th>
+        <th style="border-bottom: 1px dashed; padding-left: 1em;text-align:left;" >
+         BEST POSSIBLE MATCH
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align:right;">MA0102.2</td>
+        <td style="text-align:right;padding-left: 1em;">9</td>
+        <td style="text-align:left;padding-left: 1em;">TTTCGCAAT</td>
+       </tr>
+    </tbody>
+  </table>
+</p>
+<p>
+Random model letter frequencies (--nrdb--):
+<br/>
+
+A 0.275 C 0.225 G 0.225 T 0.275 </p>
+</div>
+<hr>
+<center><big><b><a name="sec_i">SECTION I: HIGH-SCORING MOTIF OCCURENCES</a></b></big></center>
+<hr>
+<ul>
+<li>
+There were 76 motif occurences with a p-value less than 0.0001.
+
+The full set of motif occurences can be seen in the
+TSV (tab-delimited values) output file
+<a href="fimo.tsv">fimo.tsv</a>, 
+the GFF3 file 
+<a href="fimo.gff">fimo.gff</a> 
+which may be suitable for uploading to the 
+<a href="http://genome.ucsc.edu/cgi-bin/hgTables">UCSC Genome Table Browser</a>
+(assuming the FASTA input sequences included genomic coordinates in UCSC or Galaxy format),
+or the XML file 
+<a href="fimo.xml">fimo.xml</a>.
+</li>
+<li>
+The <i>p</i>-value of a motif occurrence is defined as the
+probability of a random sequence of the same length as the motif
+matching that position of the sequence with as good or better a score.
+</li>
+<li>
+The score for the match of a position in a sequence to a motif
+is computed by summing the appropriate entries from each column of
+the position-dependent scoring matrix that represents the motif.
+</li>
+<li>
+The q-value of a motif occurrence is defined as the
+false discovery rate if the occurrence is accepted as significant.
+</li>
+<li>The table is sorted by increasing <i>p</i>-value.</li>
+</ul>
+<table border="1">
+<thead>
+<tr>
+<th>Motif ID</th>
+<th>Alt ID</th>
+<th>Sequence Name</th>
+<th>Strand</th>
+<th>Start</th>
+<th>End</th>
+<th>p-value</th>
+<th>q-value</th>
+<th>Matched Sequence</th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">12_84762517_84762932</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">91</td>
+      <td style="text-align:left;">99</td>
+      <td style="text-align:left;">8.94e-06</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">7_116462212_116462499</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">42</td>
+      <td style="text-align:left;">50</td>
+      <td style="text-align:left;">2.61e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">5_105189440_105189743</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">86</td>
+      <td style="text-align:left;">94</td>
+      <td style="text-align:left;">2.61e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">16_23374924_23375344</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">112</td>
+      <td style="text-align:left;">120</td>
+      <td style="text-align:left;">2.61e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">7_75365544_75365865</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">124</td>
+      <td style="text-align:left;">132</td>
+      <td style="text-align:left;">2.61e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">6_129030409_129030915</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">165</td>
+      <td style="text-align:left;">173</td>
+      <td style="text-align:left;">2.61e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">14_24213330_24213799</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">240</td>
+      <td style="text-align:left;">248</td>
+      <td style="text-align:left;">2.61e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">6_49759594_49759992</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">25</td>
+      <td style="text-align:left;">33</td>
+      <td style="text-align:left;">3.21e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_131509686_131510397</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">61</td>
+      <td style="text-align:left;">3.21e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">17_72996588_72997052</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">127</td>
+      <td style="text-align:left;">135</td>
+      <td style="text-align:left;">3.21e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">14_69972522_69972921</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">375</td>
+      <td style="text-align:left;">383</td>
+      <td style="text-align:left;">3.21e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">17_36389839_36390340</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">385</td>
+      <td style="text-align:left;">393</td>
+      <td style="text-align:left;">3.21e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">7_101851756_101851990</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">161</td>
+      <td style="text-align:left;">169</td>
+      <td style="text-align:left;">3.94e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTACGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">6_101330432_101330854</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">41</td>
+      <td style="text-align:left;">49</td>
+      <td style="text-align:left;">4.34e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGTCGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">6_48948910_48949272</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">277</td>
+      <td style="text-align:left;">285</td>
+      <td style="text-align:left;">4.34e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGTCGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">18_69575110_69575925</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">417</td>
+      <td style="text-align:left;">425</td>
+      <td style="text-align:left;">4.34e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGTCGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">8_77785845_77786210</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">30</td>
+      <td style="text-align:left;">38</td>
+      <td style="text-align:left;">4.75e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ttgtgcaac</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">4_11345674_11346005</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">33</td>
+      <td style="text-align:left;">41</td>
+      <td style="text-align:left;">4.75e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">7_55767978_55768415</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">37</td>
+      <td style="text-align:left;">45</td>
+      <td style="text-align:left;">4.75e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ttgtgcaac</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">6_144817588_144818441</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">134</td>
+      <td style="text-align:left;">142</td>
+      <td style="text-align:left;">4.75e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">3_121509109_121509626</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">203</td>
+      <td style="text-align:left;">211</td>
+      <td style="text-align:left;">4.75e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">10_61114160_61114608</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">406</td>
+      <td style="text-align:left;">414</td>
+      <td style="text-align:left;">4.75e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">8_88668472_88669177</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">569</td>
+      <td style="text-align:left;">577</td>
+      <td style="text-align:left;">4.75e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ttgtgcaac</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">8_77785845_77786210</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">29</td>
+      <td style="text-align:left;">37</td>
+      <td style="text-align:left;">5.24e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">6_144817588_144818441</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">135</td>
+      <td style="text-align:left;">143</td>
+      <td style="text-align:left;">5.24e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">6_129030409_129030915</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">164</td>
+      <td style="text-align:left;">172</td>
+      <td style="text-align:left;">5.24e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">5_107373265_107373641</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">368</td>
+      <td style="text-align:left;">376</td>
+      <td style="text-align:left;">5.24e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">10_61114160_61114608</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">407</td>
+      <td style="text-align:left;">415</td>
+      <td style="text-align:left;">5.24e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">8_88668472_88669177</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">568</td>
+      <td style="text-align:left;">576</td>
+      <td style="text-align:left;">5.24e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">1_46905791_46906083</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">51</td>
+      <td style="text-align:left;">59</td>
+      <td style="text-align:left;">5.73e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">3_79438263_79438692</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">146</td>
+      <td style="text-align:left;">154</td>
+      <td style="text-align:left;">5.73e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_155680639_155680914</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">151</td>
+      <td style="text-align:left;">159</td>
+      <td style="text-align:left;">5.73e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">1_54564016_54564330</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">153</td>
+      <td style="text-align:left;">161</td>
+      <td style="text-align:left;">5.73e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ttttgcaac</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">14_33171957_33172276</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">180</td>
+      <td style="text-align:left;">188</td>
+      <td style="text-align:left;">5.73e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_28352928_28353259</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">262</td>
+      <td style="text-align:left;">270</td>
+      <td style="text-align:left;">5.73e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ttttgcaac</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_178691541_178692245</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">396</td>
+      <td style="text-align:left;">404</td>
+      <td style="text-align:left;">5.73e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">11_62621148_62621936</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">642</td>
+      <td style="text-align:left;">650</td>
+      <td style="text-align:left;">5.73e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTTGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_27922004_27922427</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">45</td>
+      <td style="text-align:left;">53</td>
+      <td style="text-align:left;">6.33e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">7_81921442_81921937</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">73</td>
+      <td style="text-align:left;">81</td>
+      <td style="text-align:left;">6.33e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">12_25311742_25312083</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">102</td>
+      <td style="text-align:left;">110</td>
+      <td style="text-align:left;">6.33e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">1_87650556_87651131</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">114</td>
+      <td style="text-align:left;">122</td>
+      <td style="text-align:left;">6.33e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">19_28428290_28428756</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">162</td>
+      <td style="text-align:left;">170</td>
+      <td style="text-align:left;">6.33e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">3_79539702_79540018</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">198</td>
+      <td style="text-align:left;">206</td>
+      <td style="text-align:left;">6.33e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">3_101211998_101212758</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">247</td>
+      <td style="text-align:left;">255</td>
+      <td style="text-align:left;">6.33e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">1_80670389_80670735</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">299</td>
+      <td style="text-align:left;">307</td>
+      <td style="text-align:left;">6.33e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">tttcacaat</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_21222703_21223308</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">368</td>
+      <td style="text-align:left;">376</td>
+      <td style="text-align:left;">6.33e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">tttcacaat</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">6_49021121_49021353</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">112</td>
+      <td style="text-align:left;">120</td>
+      <td style="text-align:left;">6.6e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGGCGCAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">9_66977976_66978364</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">38</td>
+      <td style="text-align:left;">46</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTATGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_3912750_3913075</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">59</td>
+      <td style="text-align:left;">67</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTATGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_126515067_126515550</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">79</td>
+      <td style="text-align:left;">87</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ttatgcaat</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">9_60218464_60218723</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">83</td>
+      <td style="text-align:left;">91</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTATGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">8_40968228_40968451</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">168</td>
+      <td style="text-align:left;">176</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTATGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">15_78809816_78810501</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">195</td>
+      <td style="text-align:left;">203</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTATGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">3_136376934_136377269</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">229</td>
+      <td style="text-align:left;">237</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTATGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">4_63942899_63943238</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">288</td>
+      <td style="text-align:left;">296</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTATGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">14_47076961_47077526</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">434</td>
+      <td style="text-align:left;">442</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTATGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">8_10606220_10606737</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">478</td>
+      <td style="text-align:left;">486</td>
+      <td style="text-align:left;">7.53e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTATGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">8_83141400_83141677</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">113</td>
+      <td style="text-align:left;">121</td>
+      <td style="text-align:left;">8.26e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_48766584_48766890</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">125</td>
+      <td style="text-align:left;">133</td>
+      <td style="text-align:left;">8.26e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ttgcacaac</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">17_68107881_68108135</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">161</td>
+      <td style="text-align:left;">169</td>
+      <td style="text-align:left;">8.26e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">15_78730356_78730846</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">194</td>
+      <td style="text-align:left;">202</td>
+      <td style="text-align:left;">8.26e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">ttgcacaac</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">18_81863684_81864158</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">409</td>
+      <td style="text-align:left;">417</td>
+      <td style="text-align:left;">8.26e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">19_58376568_58377151</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">450</td>
+      <td style="text-align:left;">458</td>
+      <td style="text-align:left;">8.66e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">tttcgcaag</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">7_81100310_81100776</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">9</td>
+      <td style="text-align:left;">17</td>
+      <td style="text-align:left;">9.15e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">7_46934773_46935178</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">6</td>
+      <td style="text-align:left;">14</td>
+      <td style="text-align:left;">9.15e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">2_125282409_125283057</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">6</td>
+      <td style="text-align:left;">14</td>
+      <td style="text-align:left;">9.15e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">19_27106973_27107303</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">52</td>
+      <td style="text-align:left;">60</td>
+      <td style="text-align:left;">9.15e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">tttcacaac</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">18_60625414_60625674</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">96</td>
+      <td style="text-align:left;">104</td>
+      <td style="text-align:left;">9.15e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">8_92258254_92258650</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">185</td>
+      <td style="text-align:left;">193</td>
+      <td style="text-align:left;">9.15e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">7_30887592_30888022</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">240</td>
+      <td style="text-align:left;">248</td>
+      <td style="text-align:left;">9.15e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">tttcacaac</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">11_50850098_50850543</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">282</td>
+      <td style="text-align:left;">290</td>
+      <td style="text-align:left;">9.15e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">16_85000262_85000670</td>
+      <td style="text-align:center;">+</td>
+      <td style="text-align:left;">284</td>
+      <td style="text-align:left;">292</td>
+      <td style="text-align:left;">9.15e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTTCACAAC</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">13_30000969_30001258</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">83</td>
+      <td style="text-align:left;">91</td>
+      <td style="text-align:left;">9.56e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGGGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">15_25468487_25468831</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">300</td>
+      <td style="text-align:left;">308</td>
+      <td style="text-align:left;">9.56e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TTGGGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">1_71621548_71621891</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">69</td>
+      <td style="text-align:left;">77</td>
+      <td style="text-align:left;">9.96e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGACGCAAT</td>
+   </tr>
+    <tr>
+      <td style="text-align:left;">MA0102.2</td>
+      <td style="text-align:left;">CEBPA</td>
+      <td style="text-align:left;">10_120298394_120298852</td>
+      <td style="text-align:center;">-</td>
+      <td style="text-align:left;">424</td>
+      <td style="text-align:left;">432</td>
+      <td style="text-align:left;">9.96e-05</td>
+      <td style="text-align:left;">1</td>
+      <td style="text-align:left;font-size:x-large;font-family:monospace;">TGACGCAAT</td>
+   </tr>
+</tbody>
+</table>
+
+<hr>
+<center><big><b><a name="debugging_information">DEBUGGING INFORMATION</a></b></big></center>
+<hr>
+<p>
+Command line:
+</p>
+<pre>
+fimo --max-stored-scores 100000000 --o ../../data/ATAC_mpp3vmpp4/TOBIAS/CEBPA_MPP4 ../../LFS/genomeData/singleMotifs/CEBPA_MA0102.2.meme ../../data/ATAC_mpp3vmpp4/output/MPP4_log2fc1.fna
+</pre>
+<p>
+Settings:
+</p>
+<pre>
+<table>
+  <tr>
+    <td style="padding-right: 2em">output_directory = ../../data/ATAC_mpp3vmpp4/TOBIAS/CEBPA_MPP4</td>
+    <td style="padding-left: 5em; padding-right: 2em">MEME file name = ../../LFS/genomeData/singleMotifs/CEBPA_MA0102.2.meme</td>
+    <td style="padding-left: 5em; padding-right: 2em">sequence file name = ../../data/ATAC_mpp3vmpp4/output/MPP4_log2fc1.fna</td>
+  </tr>  <tr>
+    <td style="padding-right: 2em">background file name = --nrdb--</td>
+    <td style="padding-left: 5em; padding-right: 2em">alphabet = DNA</td>
+    <td style="padding-left: 5em; padding-right: 2em">max stored scores = 100000000</td>
+  </tr>  <tr>
+    <td style="padding-right: 2em">allow clobber = false</td>
+    <td style="padding-left: 5em; padding-right: 2em">compute q-values = true</td>
+    <td style="padding-left: 5em; padding-right: 2em">parse genomic coord. = false</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 2em">text only = false</td>
+    <td style="padding-left: 5em; padding-right: 2em">scan both strands = true</td>
+    <td style="padding-left: 5em; padding-right: 2em">max strand = false</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 2em">threshold type = p-value</td>
+    <td style="padding-left: 5em; padding-right: 2em">output theshold = 0.0001</td>
+    <td style="padding-left: 5em; padding-right: 2em">pseudocount = 0.1</td>
+  </tr>
+  <tr>
+    <td style="padding-right: 2em">alpha = 1</td>
+    <td style="padding-left: 5em; padding-right: 2em">verbosity = 2</td>
+    <td style="padding-left: 5em; padding-right: 2em"></td>
+  </tr>
+
+</table>
+</pre>
+<p>
+This information can be useful in the event you wish to report a
+problem with the FIMO software.
+</p>
+<hr>
+<span style="background-color: #DDDDFF"><a href="#top_buttons"><b>Go to top</b></a></span>
+</body>
+</html>

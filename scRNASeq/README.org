@@ -1,0 +1,22 @@
+* Analysis code for: /Lenaerts et al. 2022/
+
+This repository contains R and python script (easily converted to  Jupyter notebooks via Jupytext) used to perform scRNA-Seq analysis published in the /Lenaerts et al. 2022/ paper: "EBF1 limits myeloid fate of MPP3 and maintains the self-renewal capacity of HSCs" *(LINK)*
+
+* How to use
+To reproduce the analysis presented in the paper:
+
+1. After cloning this repository enter the scRNASeq directory:
+
+~cd scRNASeq~
+
+1. Download the container from: *LINK* (rpyv4)
+
+2. Modify the container variable in the run_analysis.sh script to point to the singularity image
+
+3. Download the data from: *LINK*, uncompress and move to the subdirectory: data/
+
+4. Run the analysis:
+
+~./run_analysis.sh~
+
+This script will create several directories to hold output files from respective analysis script, e.g. figures or processed data.

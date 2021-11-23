@@ -1,0 +1,719 @@
+---
+title: "Tek_MPP3_MPP4"
+author: "Aurelie Lenaerts"
+date: "07/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## load libraries
+
+Load the libraries and data required in this project.
+```{r libraries, message=FALSE}
+library("DESeq2")
+library("pheatmap")
+library("RColorBrewer")
+library("wesanderson")
+library("ggplot2")
+library("ashr")
+library("ggvenn") 
+library("viridis") 
+library("enrichR")
+library("ggrastr")
+```
+## Chapter 2
+
+Select genes with counts above average expression threshold.
+```{r count matrix}
+MPP3_counts <- read.delim("../data/Tek_MPP3_rawcounts.tsv")
+MPP4_counts <- read.delim("../data/Tek_MPP4_rawcounts.tsv")
+genes.filtered <- read.delim("../data/genes.filtered.t2g", header=FALSE)
+rawcount_matrix <- merge(MPP3_counts, MPP4_counts)
+rownames(rawcount_matrix) <- rawcount_matrix[, "X"]
+rawcount_matrix <- rawcount_matrix[, colnames(rawcount_matrix) != "X"]
+rawcount_matrix <- as.matrix(rawcount_matrix)
+dim(rawcount_matrix)
+colnames(rawcount_matrix) <- c("MPP3_KO1", "MPP3_KO2", "MPP3_KO3", "MPP3_KO4", "MPP3_WT1", "MPP3_WT2", "MPP3_WT3", "MPP3_WT4", "MPP4_KO1", "MPP4_KO2", "MPP4_KO3", "MPP4_KO4", "MPP4_WT1", "MPP4_WT2", "MPP4_WT3", "MPP4_WT4")
+```
+
+Create samplesheet and rowdata.
+```{r samplesheet}
+samplesheet <- data.frame(sampleName = colnames(rawcount_matrix))
+rownames(samplesheet) <- samplesheet$sampleName
+state <- c(rep(0,length(samplesheet$sampleName)))
+for (i in 1:length(state))
+{
+  state[i] <- substr(as.character(samplesheet$sampleName[i]),1,nchar(as.character(samplesheet$sampleName[i]))-1)
+}
+samplesheet$state <- state
+samplesheet
+length(unique(samplesheet$state))
+stopifnot(all(rownames(samplesheet) == colnames(rawcount_matrix)))
+rowdata <- data.frame(ENSEMBL = rownames(rawcount_matrix))
+rowdata = merge(rowdata, genes.filtered,
+                by.x = "ENSEMBL", by.y = "V2",
+                all.x = TRUE, all.y = FALSE, sort = FALSE)
+rowdata <- rowdata[!duplicated(rowdata$ENSEMBL),]
+```
+
+Create variable of average counts across samples.
+```{r avg_cond}
+rowdata$max_avg_cond <- NA
+for(i in 1:nrow(rowdata)){
+  if(i %% 1000 == 0){
+    cat(i, " ") # print gene index with a step of 1000
+  }
+  gene <- rowdata$ENSEMBL[i]
+  conditions <- unique(samplesheet$state)
+  avg_conds <- unlist(lapply(conditions, function(cond){
+    mean(rawcount_matrix[rownames(rawcount_matrix) == gene, grepl(cond, colnames(rawcount_matrix))])
+  }))
+  rowdata$max_avg_cond[i] <- max(avg_conds)
+}
+```
+
+Filter for genes with average counts greater than 100 and some data checks.
+```{r filter}
+avg_cond_thr <- 100
+selected_genes <- rowdata$ENSEMBL[rowdata$max_avg_cond > avg_cond_thr]
+
+rawcount_matrix = rawcount_matrix[order(rownames(rawcount_matrix)),]
+rowdata = rowdata[order(rowdata$ENSEMBL),]
+stopifnot(all(rowdata$ENSEMBL == rownames(rawcount_matrix)))
+dim(rawcount_matrix)
+
+rawcount_matrix <- rawcount_matrix[rownames(rawcount_matrix) %in% selected_genes, ]
+rowdata <- rowdata[rowdata$ENSEMBL %in% selected_genes, ]
+dim(rawcount_matrix)
+stopifnot(all(rownames(rawcount_matrix) == rowdata$ENSEMBL))
+
+rownames(rawcount_matrix) <- rowdata$V3
+
+stopifnot(all(rownames(samplesheet) == colnames(rawcount_matrix)))
+rownames(rawcount_matrix)[rownames(rawcount_matrix) == ""] 
+all(samplesheet$sampleName == colnames(rawcount_matrix))
+```
+We have 16 conditions and 11831 genes after the threshold.
+
+## Chapter 3
+
+Perform DEseq2 with filtered count data. Relevel the comparisons to contrast MPP3 WT versus KO and MPP4 WT versus KO. Finally, normalised counts are exported and DE genes visualised as volcano plots. 
+```{r deseq}
+dds_M3_M4 <- DESeqDataSetFromMatrix(rawcount_matrix, samplesheet, design= ~ state, rowData = rowdata)
+dds_M3_M4 <- DESeq(dds_M3_M4)
+
+dds_M3_M4$state <- factor(dds_M3_M4$state, levels = c("MPP3_WT","MPP3_KO","MPP4_WT","MPP4_KO"))
+dds_M3_M4$state
+dds_M3_M4 <- nbinomWaldTest(dds_M3_M4)
+resultsNames(dds_M3_M4)
+
+res <- results(dds_M3_M4)
+```
+
+```{r normalised counts}
+norm_counts <- counts(dds_M3_M4, normalized = TRUE)
+norm_counts <- round(norm_counts, 1)
+dim(norm_counts)
+write.table(norm_counts, file = "../proc_data/MPP3_MPP4_norm_counts.tsv", quote = FALSE, sep = "\t")
+```
+
+Visualise MPP3 and MPP4 transcriptomes, using significant DE genes. 
+```{r pca, message=FALSE}
+vsd <- vst(dds_M3_M4, blind=FALSE)
+de <- rownames(res[res$padj<0.1 & !is.na(res$padj),])
+
+PCA <- plotPCA(vsd[de,], intgroup=c("state")) + ylim(-10,10) + xlim(-14,14) + theme_minimal() + 
+  theme(axis.line=element_line(colour="black"), panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
+  scale_color_manual(values=wes_palette("GrandBudapest1"))
+print(PCA)
+ggsave("../figures/PCA.svg", dpi=300)
+```
+
+Comparison of MPP3 and MPP4 transcriptomes in WT conditions.  
+```{r WT comparison}
+resLFC_M3WTvM4WT <- lfcShrink(dds_M3_M4, contrast = c("state", "MPP3_WT", "MPP4_WT"), type = "ashr")
+resOrdered_WT_M3vM4 <- resLFC_M3WTvM4WT[order(resLFC_M3WTvM4WT$log2FoldChange),]
+write.table(resOrdered_WT_M3vM4, file = "../proc_data/MPP3WTvMPP4WT_results.tsv", quote = FALSE, sep = "\t")
+resSig_WT <- subset(resOrdered_WT_M3vM4, padj < 0.1)
+```
+
+```{r WT maplot, message=FALSE}
+WT_M3vM4_df <- as.data.frame(resLFC_M3WTvM4WT)
+WT_M3vM4_df$padj[is.na(WT_M3vM4_df$padj)] <- 1
+WT_M3vM4_df$sigBool <- 'NS'
+WT_M3vM4_df[(WT_M3vM4_df$padj <0.1) & (WT_M3vM4_df$log2FoldChange > 0),]$sigBool <- "MPP3"
+WT_M3vM4_df[(WT_M3vM4_df$padj <0.1) & (WT_M3vM4_df$log2FoldChange < 0),]$sigBool <- "MPP4"
+WT_M3vM4_df$log2FoldChangeADJ <- WT_M3vM4_df$log2FoldChange
+WT_M3vM4_df$log2FoldChangeADJ[WT_M3vM4_df$log2FoldChangeADJ > 2] <- 2
+WT_M3vM4_df$log2FoldChangeADJ[WT_M3vM4_df$log2FoldChangeADJ < -2] <- -2
+
+WT_MPP3vMPP4_MA <- ggplot(data=WT_M3vM4_df) +
+  geom_point_rast(aes(x=log10(baseMean), y=log2FoldChangeADJ, col=sigBool), 
+                  alpha=0.5, size=3.75,raster.dpi = 600) +
+  theme_minimal() + scale_x_continuous(limits = c(1,5), breaks = c(1, 2,3, 4, 5)) +
+  theme(axis.line=element_line(colour="black"), axis.ticks = element_line(colour = "black"), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  scale_color_manual(values = c("#e87b2a","#1272ba","grey" ))
+print(WT_MPP3vMPP4_MA)
+ggsave("../figures/WT_MPP3vMPP4_MA.svg", dpi=300)
+```
+
+Comparison of MPP3 WT versus KO.  
+```{r MPP3 WTvKO}
+resLFC_M3KOvWT <- lfcShrink(dds_M3_M4, contrast = c("state", "MPP3_KO", "MPP3_WT"), type = "ashr")
+resOrdered_M3 <- resLFC_M3KOvWT[order(resLFC_M3KOvWT$log2FoldChange),]
+write.table(resOrdered_M3, file = "../proc_data/MPP3_KOvWT_results.tsv", quote = FALSE, sep = "\t")
+resSig_M3 <- subset(resOrdered_M3, padj < 0.1)
+```
+
+```{r MPP3 volcano, message=FALSE}
+M3KOvWT_df <- as.data.frame(resLFC_M3KOvWT)
+M3KOvWT_df$padj[is.na(M3KOvWT_df$padj)] <- 1
+M3KOvWT_df$sigBool = ifelse(resLFC_M3KOvWT$padj < 0.1, 'S', 'NS')
+M3KOvWT_df$log2FoldChangeADJ <- M3KOvWT_df$log2FoldChange
+M3KOvWT_df$log2FoldChangeADJ[M3KOvWT_df$log2FoldChangeADJ > 2] <- 2
+M3KOvWT_df$log2FoldChangeADJ[M3KOvWT_df$log2FoldChangeADJ < -2] <- -2
+
+MPP3_KOvWT_MA <- ggplot(data=M3KOvWT_df) +
+  geom_point_rast(aes(x=log10(baseMean), y=log2FoldChangeADJ, col=sigBool), 
+                  alpha=0.5, size=3.75,raster.dpi = 600) +
+  theme_minimal() + scale_x_continuous(limits = c(1,6), breaks = c(1, 2,3, 4, 5, 6)) +
+  theme(axis.line=element_line(colour="black"), axis.ticks = element_line(colour = "black"), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  scale_color_manual(values = c("grey","#1f77b4"))
+print(MPP3_KOvWT_MA)
+ggsave("../figures/MPP3_KOvWT_MA.svg", dpi=300)
+```
+
+Comparison of MPP4 WT versus KO.  
+```{r MPP4 WTvKO}
+resLFC_M4KOvWT <- lfcShrink(dds_M3_M4, contrast = c("state", "MPP4_KO", "MPP4_WT"), type = "ashr")
+resOrdered_M4 <- resLFC_M4KOvWT[order(resLFC_M4KOvWT$log2FoldChange),]
+write.table(resOrdered_M4, file = "../proc_data/MPP4_KOvWT_results.tsv", quote = FALSE, sep = "\t")
+resSig_M4 <- subset(resOrdered_M4, padj < 0.1)
+```
+
+```{r MPP4 volcano, message=FALSE}
+M4KOvWT_df <- as.data.frame(resLFC_M4KOvWT)
+M4KOvWT_df$padj[is.na(M4KOvWT_df$padj)] <- 1
+M4KOvWT_df$sigBool = ifelse(M4KOvWT_df$padj < 0.1, 'S', 'NS')
+M4KOvWT_df$log2FoldChangeADJ <- M4KOvWT_df$log2FoldChange
+M4KOvWT_df$log2FoldChangeADJ[M4KOvWT_df$log2FoldChangeADJ > 2] <- 2
+M4KOvWT_df$log2FoldChangeADJ[M4KOvWT_df$log2FoldChangeADJ < -2] <- -2
+
+
+MPP4_KOvWT_MA <- ggplot(data=M4KOvWT_df) +
+  geom_point_rast(aes(x=log10(baseMean), y=log2FoldChangeADJ, col=sigBool), 
+                  alpha=0.5, size=3.75,raster.dpi = 600) +
+  theme_minimal() + scale_x_continuous(limits = c(1,6), breaks = c(1, 2,3, 4, 5, 6)) +
+  theme(axis.line=element_line(colour="black"), axis.ticks = element_line(colour = "black"), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  scale_color_manual(values = c("grey","#1f77b4","red"))
+print(MPP4_KOvWT_MA)
+ggsave("../figures/MPP4_KOvWT_MA.svg", dpi=300)
+
+```
+
+## Chapter 4
+
+z-score heatmap of DRGs.
+Create dataframe for MPP3, common and MPP4 DE genes.
+```{r DRG dataframe}
+M3_DRG <- as.data.frame(resSig_M3)
+M4_DRG <- as.data.frame(resSig_M4)
+shared_genes <- resSig_M3[rownames(resSig_M3) %in%  rownames(resSig_M4),]
+common_DRG <- as.data.frame(shared_genes)
+common_DRG$gene <- row.names(common_DRG)
+M3_DRG$gene <- row.names(M3_DRG)
+M4_DRG$gene <- row.names(M4_DRG)
+M3_notshared <- M3_DRG[!(M3_DRG$gene %in% common_DRG$gene), ]
+M4_notshared <- M4_DRG[!(M4_DRG$gene %in% common_DRG$gene), ]
+M3_spec <- merge(M3_notshared, norm_counts, by = "row.names")
+M4_spec <- merge(M4_notshared, norm_counts, by = "row.names")
+df_shared <- merge(common_DRG, norm_counts, by = "row.names")
+rownames(M3_spec) = M3_spec$Row.names
+rownames(M4_spec) = M4_spec$Row.names
+rownames(df_shared) <- df_shared$Row.names
+```
+```{r export MPP3, MPP4 and shared DE gene list}
+MPP4_Up <- M4_spec[M4_spec$log2FoldChange > 0,]
+MPP4_Down <- M4_spec[M4_spec$log2FoldChange < 0,]
+MPP3_Up <- M3_spec[M3_spec$log2FoldChange > 0,]
+MPP3_Down <- M3_spec[M3_spec$log2FoldChange < 0,]
+Common_Up <- df_shared[df_shared$log2FoldChange > 1,]
+Common_Down <- df_shared[df_shared$log2FoldChange < 1,]
+write.table(MPP4_Up$gene, file = "../proc_data/MPP4_Up_genename.txt", quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(MPP4_Down$gene, file = "../proc_data/MPP4_Down_genename.txt", quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(MPP3_Up$gene, file = "../proc_data/MPP3_Up_genename.txt", quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(MPP3_Down$gene, file = "../proc_data/MPP3_Down_genename.txt", quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(Common_Up$gene, file = "../proc_data/Common_Up_genename.txt", quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(Common_Down$gene, file = "../proc_data/Common_Down_genename.txt", quote = FALSE, row.names = FALSE, col.names = FALSE)
+```
+
+Calculate z-scores for MPP3 and MPP4 cells separately for each set of DE genes.
+```{r M3 DRG zscore}
+M3spec_Zscores <- as.data.frame(
+  t(apply(M3_spec[,c(8:15)], 1, function(x) (x-mean(x))/sd(x)) ))
+M3spec_ZscoresM4 <- as.data.frame(
+  t(apply(M3_spec[,c(16:23)], 1, function(x) (x-mean(x))/sd(x)) ))
+M3DRG_Zscores <- cbind(M3spec_Zscores, M3spec_ZscoresM4)
+M3DRG_Zscores <- M3DRG_Zscores[,c(5,6,7,8,1,2,3,4,13,14,15,16,9,10,11,12)]
+```
+
+```{r M4 DRG zscore}
+M4spec_Zscores <- as.data.frame(
+  t(apply(M4_spec[,c(16:23)], 1, function(x) (x-mean(x))/sd(x)) ))
+M4spec_ZscoresM3 <- as.data.frame(
+  t(apply(M4_spec[,c(8:15)], 1, function(x) (x-mean(x))/sd(x)) ))
+M4DRG_Zscores <- cbind(M4spec_ZscoresM3, M4spec_Zscores)
+M4DRG_Zscores <- M4DRG_Zscores[,c(5,6,7,8,1,2,3,4,13,14,15,16,9,10,11,12)]
+```
+
+```{r Common DRG zscore}
+M4_Zscores <- as.data.frame(t(apply(df_shared[,c(16:23)], 1, function(x) (x-mean(x))/sd(x)) ))
+M3_Zscores <- as.data.frame(t(apply(df_shared[,c(8:15)], 1, function(x) (x-mean(x))/sd(x)) ))
+shared_Zscores <- cbind(M3_Zscores, M4_Zscores)
+shared_Zscores <- shared_Zscores[,c(5,6,7,8,1,2,3,4,13,14,15,16,9,10,11,12)]
+```
+
+Extract cluster row order for each set of DE genes. 
+```{r M3 DRG roworder}
+pal <- wes_palette(name = "Zissou1", 100, type = c("continuous"))
+M3_spec_heatmap <- pheatmap(as.matrix(M3DRG_Zscores), cluster_cols=F, cellwidth = 8, cellheight = 2, treeheight_row = 0, show_rownames = FALSE, color = pal, border_color = "black")
+M3_spec_heatmap_roworder <- M3DRG_Zscores[M3_spec_heatmap$tree_row$order,]
+rev_M3_spec_heatmap_roworder <- apply(M3_spec_heatmap_roworder, 2, rev)
+rev_M3_spec_heatmap_roworder <- as.data.frame(rev_M3_spec_heatmap_roworder)
+M3_roworder_anno <- data.frame(gene = row.names(rev_M3_spec_heatmap_roworder))
+M3_roworder_anno$cluster <- "MPP3"
+M3_roworder_anno$gene -> row.names(M3_roworder_anno)
+M3_roworder_anno$gene <- NULL
+```
+
+```{r M4 DRG roworder}
+M4_spec_heatmap <- pheatmap(as.matrix(M4DRG_Zscores), cluster_cols=F, cellwidth = 8, cellheight = 2, treeheight_row = 0, show_rownames = FALSE, color = pal, border_color = "black")
+M4_spec_heatmap_roworder <- M4DRG_Zscores[M4_spec_heatmap$tree_row$order,]
+rev_M4_spec_heatmap_roworder <- apply(M4_spec_heatmap_roworder, 2, rev)
+rev_M4_spec_heatmap_roworder <- as.data.frame(rev_M4_spec_heatmap_roworder)
+M4_roworder_anno <- data.frame(gene = row.names(rev_M4_spec_heatmap_roworder))
+M4_roworder_anno$cluster <- "MPP4"
+M4_roworder_anno$gene -> row.names(M4_roworder_anno)
+M4_roworder_anno$gene <- NULL
+```
+
+```{r common DRG roworder}
+shared_MPP3_4 <- pheatmap(as.matrix(shared_Zscores), cluster_cols=F, cellwidth = 8, cellheight = 2, treeheight_row = 0, legend_breaks = c(-2, 0, 2), show_rownames = FALSE, color = pal)
+shared_heatmap_roworder <- shared_Zscores[shared_MPP3_4$tree_row$order,]
+common_roworder_anno <- data.frame(gene = row.names(shared_heatmap_roworder))
+common_roworder_anno$cluster <- "common"
+common_roworder_anno$gene -> row.names(common_roworder_anno)
+common_roworder_anno$gene <- NULL
+```
+
+Plot heatmap or ordered DRGs.
+```{r DRG heatmap}
+ordered_DRG_mat <- rbind(rev_M3_spec_heatmap_roworder,shared_heatmap_roworder,rev_M4_spec_heatmap_roworder)
+ordered_DRG_anno <- rbind(M3_roworder_anno, common_roworder_anno, M4_roworder_anno)
+
+pheatmap(as.matrix(ordered_DRG_mat), cluster_cols=F, cluster_rows = F, cellwidth = 6, cellheight = 1,
+         treeheight_row = 0, annotation_row = ordered_DRG_anno, show_rownames = FALSE, color = pal,
+         gaps_row = c(149, 215), gaps_col = c(8), filename = "../figures/DRG_zscore_heatmap.pdf")
+```
+
+##chapter test 
+
+z-score heatmap of DRGs.
+Create dataframe for MPP3, common and MPP4 DE genes.
+```{r DRG dataframe}
+M3_DRG <- as.data.frame(resSig_M3)
+M4_DRG <- as.data.frame(resSig_M4)
+shared_genes <- resSig_M3[rownames(resSig_M3) %in%  rownames(resSig_M4),]
+common_DRG <- as.data.frame(shared_genes)
+common_DRG$gene <- row.names(common_DRG)
+M3_DRG$gene <- row.names(M3_DRG)
+M4_DRG$gene <- row.names(M4_DRG)
+M3_notshared <- M3_DRG[!(M3_DRG$gene %in% common_DRG$gene), ]
+M4_notshared <- M4_DRG[!(M4_DRG$gene %in% common_DRG$gene), ]
+M3_spec <- merge(M3_notshared, norm_counts, by = "row.names")
+M4_spec <- merge(M4_notshared, norm_counts, by = "row.names")
+df_shared <- merge(common_DRG, norm_counts, by = "row.names")
+rownames(M3_spec) = M3_spec$Row.names
+rownames(M4_spec) = M4_spec$Row.names
+rownames(df_shared) <- df_shared$Row.names
+M3_spec = M3_spec[,c(1:15)]
+M4_spec = M4_spec[,c(1:7,16:23)]
+```
+
+Plot heatmap for MPP3 DE genes. 
+Calculate z-scores for each set of DE genes.
+```{r M3 DRG zscore}
+M3spec_Zscores <- as.data.frame(
+  t(apply(M3_spec[,c(8:15)], 1, function(x) (x-mean(x))/sd(x)) ))
+M3spec_Zscores <- M3spec_Zscores[,c(5,6,7,8,1,2,3,4)]
+
+M3shared_Zscores <- as.data.frame(t(apply(df_shared[,c(8:15)], 1, function(x) (x-mean(x))/sd(x)) ))
+M3shared_Zscores <- M3shared_Zscores[,c(5,6,7,8,1,2,3,4)]
+```
+
+Extract cluster row order for each set of DE genes. 
+```{r M3 DRG roworder}
+pal <- wes_palette(name = "Zissou1", 100, type = c("continuous"))
+M3_spec_heatmap <- pheatmap(as.matrix(M3spec_Zscores), cluster_cols=F, cellwidth = 8, cellheight = 2, treeheight_row = 0, show_rownames = FALSE, color = pal, border_color = "black")
+M3_spec_heatmap_roworder <- M3spec_Zscores[M3_spec_heatmap$tree_row$order,]
+rev_M3_spec_heatmap_roworder <- apply(M3_spec_heatmap_roworder, 2, rev)
+rev_M3_spec_heatmap_roworder <- as.data.frame(rev_M3_spec_heatmap_roworder)
+M3_roworder_anno <- data.frame(gene = row.names(rev_M3_spec_heatmap_roworder))
+M3_roworder_anno$cluster <- "MPP3"
+M3_roworder_anno$gene -> row.names(M3_roworder_anno)
+M3_roworder_anno$gene <- NULL
+```
+```{r common MPP3 DRG roworder}
+shared_MPP3 <- pheatmap(as.matrix(M3shared_Zscores), cluster_cols=F, cellwidth = 8, cellheight = 2, treeheight_row = 0, legend_breaks = c(-2, 0, 2), show_rownames = FALSE, color = pal)
+sharedM3_heatmap_roworder <- M3shared_Zscores[shared_MPP3$tree_row$order,]
+commonM3_roworder_anno <- data.frame(gene = row.names(sharedM3_heatmap_roworder))
+commonM3_roworder_anno$cluster <- "common"
+commonM3_roworder_anno$gene -> row.names(commonM3_roworder_anno)
+commonM3_roworder_anno$gene <- NULL
+```
+
+Plot heatmap or ordered DRGs.
+```{r MPP3 DRG heatmap}
+M3ordered_DRG_mat <- rbind(rev_M3_spec_heatmap_roworder,sharedM3_heatmap_roworder)
+M3ordered_DRG_anno <- rbind(M3_roworder_anno, commonM3_roworder_anno)
+
+pheatmap(as.matrix(M3ordered_DRG_mat), cluster_cols=F, cluster_rows = F, cellwidth = 6, cellheight = 1,
+         treeheight_row = 0, annotation_row = M3ordered_DRG_anno, show_rownames = FALSE, color = pal,
+         gaps_row = c(149), filename = "../figures/MPP3_DRG_zscore_heatmap.pdf")
+```
+
+
+Plot heatmap for MPP4 DE genes. 
+Calculate z-scores for each set of DE genes.
+```{r M4 DRG zscore}
+M4spec_Zscores <- as.data.frame(
+  t(apply(M4_spec[,c(8:15)], 1, function(x) (x-mean(x))/sd(x)) ))
+M4spec_Zscores <- M4spec_Zscores[,c(5,6,7,8,1,2,3,4)]
+
+M4shared_Zscores <- as.data.frame(t(apply(df_shared[,c(16:23)], 1, function(x) (x-mean(x))/sd(x)) ))
+M4shared_Zscores <- M4shared_Zscores[,c(5,6,7,8,1,2,3,4)]
+```
+
+Extract cluster row order for each set of DE genes. 
+```{r M4 DRG roworder}
+M4_spec_heatmap <- pheatmap(as.matrix(M4spec_Zscores), cluster_cols=F, cellwidth = 8, cellheight = 2, treeheight_row = 0, show_rownames = FALSE, color = pal, border_color = "black")
+M4_spec_heatmap_roworder <- M4spec_Zscores[M4_spec_heatmap$tree_row$order,]
+rev_M4_spec_heatmap_roworder <- apply(M4_spec_heatmap_roworder, 2, rev)
+rev_M4_spec_heatmap_roworder <- as.data.frame(rev_M4_spec_heatmap_roworder)
+M4_roworder_anno <- data.frame(gene = row.names(rev_M4_spec_heatmap_roworder))
+M4_roworder_anno$cluster <- "MPP4"
+M4_roworder_anno$gene -> row.names(M4_roworder_anno)
+M4_roworder_anno$gene <- NULL
+```
+```{r common MPP4 DRG roworder}
+shared_MPP4 <- pheatmap(as.matrix(M4shared_Zscores), cluster_cols=F, cellwidth = 8, cellheight = 2, treeheight_row = 0, legend_breaks = c(-2, 0, 2), show_rownames = FALSE, color = pal)
+sharedM4_heatmap_roworder <- M4shared_Zscores[shared_MPP4$tree_row$order,]
+rev_sharedM4_heatmap_roworder <- apply(sharedM4_heatmap_roworder, 2, rev)
+commonM4_roworder_anno <- data.frame(gene = row.names(rev_sharedM4_heatmap_roworder))
+commonM4_roworder_anno$cluster <- "common"
+commonM4_roworder_anno$gene -> row.names(commonM4_roworder_anno)
+commonM4_roworder_anno$gene <- NULL
+```
+Plot heatmap or ordered DRGs.
+```{r MPP4 DRG heatmap}
+M4ordered_DRG_mat <- rbind(rev_M4_spec_heatmap_roworder,rev_sharedM4_heatmap_roworder)
+M4ordered_DRG_anno <- rbind(M4_roworder_anno, commonM4_roworder_anno)
+
+pheatmap(as.matrix(M4ordered_DRG_mat), cluster_cols=F, cluster_rows = F, cellwidth = 6, cellheight = 1,
+         treeheight_row = 0, annotation_row = M4ordered_DRG_anno, show_rownames = FALSE, color = pal,
+         gaps_row = c(239), filename = "../figures/MPP4_DRG_zscore_heatmap.pdf")
+```
+
+## Chapter 5
+
+Enrichment analysis of WTvKO and MPP3vMPP4 with enrichR databases. 
+```{r enrichrDB}
+dbs <- listEnrichrDbs()
+dbs <- c("Gene_Perturbations_from_GEO_down", "GO_Biological_Process_2021", "PanglaoDB_Augmented_2021")
+```
+
+WT enrichment
+```{r WT enrichR}
+enriched_WT_M3 <- enrichr(rownames(resSig_WT[resSig_WT$log2FoldChange > 0, ]), dbs)
+enriched_WT_M4 <- enrichr(rownames(resSig_WT[resSig_WT$log2FoldChange < 0, ]), dbs)
+```
+```{r WT GEO down, message=FALSE}
+WT_M3_GEO_down = enriched_WT_M3$Gene_Perturbations_from_GEO_down
+WT_M3_GEO_down = WT_M3_GEO_down[order(WT_M3_GEO_down$Adjusted.P.value), ]
+WT_M3_GEO_down$Combined.Score <- -WT_M3_GEO_down$Combined.Score
+WT_M3_GEO_down$Status <- "MPP3"
+WT_M4_GEO_down = enriched_WT_M4$Gene_Perturbations_from_GEO_down
+WT_M4_GEO_down = WT_M4_GEO_down[order(WT_M4_GEO_down$Adjusted.P.value), ]
+WT_M4_GEO_down$Status <- "MPP4"
+WT_GEOco <- rbind(WT_M3_GEO_down[c(1:3), ],
+                  WT_M4_GEO_down[c(1:3), ])
+WT_GEOco$logpadj <- log10(WT_GEOco$Adjusted.P.value)
+WT_GEOco$setsize <- sapply(strsplit(WT_GEOco$Overlap, '/'),"[[",1)
+
+M3vM4_GEO_down <- ggplot(WT_GEOco) +
+  geom_point(aes(y=reorder(Term, -Combined.Score), x=Combined.Score, color=-logpadj, size = as.numeric(setsize))) +
+  scale_color_gradient(low="#9ECAE1", high="#1f77b4") +
+  theme_classic()
+print(M3vM4_GEO_down)
+ggsave("../figures/M3vM4_GEO_down.svg", dpi=300)
+```
+```{r WT GO_BP, message=FALSE}
+WT_M3_GO_BP = enriched_WT_M3$GO_Biological_Process_2021
+WT_M3_GO_BP = WT_M3_GO_BP[order(WT_M3_GO_BP$Adjusted.P.value), ]
+WT_M3_GO_BP$Combined.Score <- -WT_M3_GO_BP$Combined.Score
+WT_M3_GO_BP$Status <- "MPP3"
+WT_M4_GO_BP = enriched_WT_M4$GO_Biological_Process_2021
+WT_M4_GO_BP = WT_M4_GO_BP[order(WT_M4_GO_BP$Adjusted.P.value), ]
+WT_M4_GO_BP$Status <- "MPP4"
+WT_GOBPco <- rbind(WT_M3_GO_BP[c(1:3), ],
+                   WT_M4_GO_BP[c(1:3), ])
+WT_GOBPco$logpadj <- log10(WT_GOBPco$Adjusted.P.value)
+WT_GOBPco$setsize <- sapply(strsplit(WT_GOBPco$Overlap, '/'),"[[",1)
+
+M3vM4_GO_BP <- ggplot(WT_GOBPco) +
+  geom_point(aes(y=reorder(Term, -Combined.Score), x=Combined.Score, color=-logpadj, size = as.numeric(setsize))) +
+  scale_color_gradient(low="#9ECAE1", high="#1f77b4") +
+  theme_classic()
+print(M3vM4_GO_BP)
+ggsave("../figures/M3vM4_GO_BP.svg", dpi=300)
+```
+```{r WT PanglaoDB, message=FALSE}
+WT_M3_celltypes = enriched_WT_M3$PanglaoDB_Augmented_2021
+WT_M3_celltypes = WT_M3_celltypes[order(WT_M3_celltypes$Adjusted.P.value), ]
+WT_M3_celltypes$Combined.Score <- -WT_M3_celltypes$Combined.Score
+WT_M3_celltypes$Status <- "MPP3"
+WT_M4_celltypes = enriched_WT_M4$PanglaoDB_Augmented_2021
+WT_M4_celltypes = WT_M4_celltypes[order(WT_M4_celltypes$Adjusted.P.value), ]
+WT_M4_celltypes$Status <- "MPP4"
+WT_Celltypesco <- rbind(WT_M3_celltypes[c(1:3), ],
+                        WT_M4_celltypes[c(1:3), ])
+WT_Celltypesco$logpadj <- log10(WT_Celltypesco$Adjusted.P.value)
+WT_Celltypesco$setsize <- sapply(strsplit(WT_Celltypesco$Overlap, '/'),"[[",1)
+
+M3vM4_Celltypes <- ggplot(WT_Celltypesco) +
+  geom_point(aes(y=reorder(Term, -Combined.Score), x=Combined.Score, color=-logpadj, size = as.numeric(setsize))) +
+  scale_color_gradient(low="#9ECAE1", high="#1f77b4") +
+  theme_classic()
+print(M3vM4_Celltypes)
+ggsave("../figures/M3vM4_Celltypes.svg", dpi=300)
+```
+MPP3 WTvKO enrichment
+```{r MPP3 enrichR}
+enriched_M3KO <- enrichr(rownames(resSig_M3[resSig_M3$log2FoldChange > 0, ]), dbs)
+enriched_M3WT <- enrichr(rownames(resSig_M3[resSig_M3$log2FoldChange < 0, ]), dbs)
+```
+```{r MPP3 PanglaoDB}
+M3_Cell_WT = enriched_M3WT$PanglaoDB_Augmented_2021
+M3_Cell_WT = M3_Cell_WT[order(M3_Cell_WT$Adjusted.P.value), ]
+M3_Cell_WT$Combined.Score <- -M3_Cell_WT$Combined.Score
+M3_Cell_WT$Status <- "MPP3_WT"
+M3_Cell_KO = enriched_M3KO$PanglaoDB_Augmented_2021
+M3_Cell_KO = M3_Cell_KO[order(M3_Cell_KO$Adjusted.P.value), ]
+M3_Cell_KO$Status <- "MPP3_KO"
+```
+```{r MPP3 GO_BP}
+M3_BP_WT = enriched_M3WT$GO_Biological_Process_2021
+M3_BP_WT = M3_BP_WT[order(M3_BP_WT$Adjusted.P.value), ]
+M3_BP_WT$Combined.Score <- -M3_BP_WT$Combined.Score
+M3_BP_WT$Status <- "MPP3_WT"
+M3_BP_KO = enriched_M3KO$GO_Biological_Process_2021
+M3_BP_KO = M3_BP_KO[order(M3_BP_KO$Adjusted.P.value), ]
+M3_BP_KO$Status <- "MPP3_KO"
+```
+```{r MPP3 GEO down}
+M3_TF_WT = enriched_M3WT$Gene_Perturbations_from_GEO_down
+M3_TF_WT = M3_TF_WT[order(M3_TF_WT$Adjusted.P.value), ]
+M3_TF_WT$Combined.Score <- -M3_TF_WT$Combined.Score
+M3_TF_WT$Status <- "MPP3_WT"
+M3_TF_KO = enriched_M3KO$Gene_Perturbations_from_GEO_down
+M3_TF_KO = M3_TF_KO[order(M3_TF_KO$Adjusted.P.value), ]
+M3_TF_KO$Status <- "MPP3_KO"
+```
+```{r M3 enrichR plot, message=FALSE}
+M3Co <- rbind(M3_TF_WT[c(1), ],
+                 M3_TF_KO[c(1:2), ],
+                 M3_BP_WT[c(1), ],
+                 M3_BP_KO[c(1:3), ],
+                 M3_Cell_WT[c(1:3), ],
+                 M3_Cell_KO[c(1:2), ])
+
+M3Co$logpadj <- log10(M3Co$Adjusted.P.value)
+M3Co$setsize <- sapply(strsplit(M3Co$Overlap, '/'),"[[",1)
+
+M3_enrichr <- ggplot(M3Co) +
+  geom_point(aes(y=reorder(Term, -Combined.Score), x=-logpadj, color=Status, size = as.numeric(setsize))) +
+  theme_classic() +
+  scale_color_manual(values = c("#e6c19e","#e87b2a"))
+print(M3_enrichr)
+ggsave("../figures/M3_enrichr.svg", dpi=300)
+```
+MPP4 WTvKO enrichment
+```{r MPP4 enrichR}
+enriched_M4KO <- enrichr(rownames(resSig_M4[resSig_M4$log2FoldChange > 0, ]), dbs)
+enriched_M4WT <- enrichr(rownames(resSig_M4[resSig_M4$log2FoldChange < 0, ]), dbs)
+```
+```{r MPP4 PanglaoDB}
+M4_Cell_WT = enriched_M4WT$PanglaoDB_Augmented_2021
+M4_Cell_WT = M4_Cell_WT[order(M4_Cell_WT$Adjusted.P.value), ]
+M4_Cell_WT$Combined.Score <- -M4_Cell_WT$Combined.Score
+M4_Cell_WT$Status <- "MPP4_WT"
+M4_Cell_KO = enriched_M4KO$PanglaoDB_Augmented_2021
+M4_Cell_KO = M4_Cell_KO[order(M4_Cell_KO$Adjusted.P.value), ]
+M4_Cell_KO$Status <- "MPP4_KO"
+```
+```{r MPP4 GO_BP}
+M4_BP_WT = enriched_M4WT$GO_Biological_Process_2021
+M4_BP_WT = M4_BP_WT[order(M4_BP_WT$Adjusted.P.value), ]
+M4_BP_WT$Combined.Score <- -M4_BP_WT$Combined.Score
+M4_BP_WT$Status <- "MPP4_WT"
+M4_BP_KO = enriched_M4KO$GO_Biological_Process_2021
+M4_BP_KO = M4_BP_KO[order(M4_BP_KO$Adjusted.P.value), ]
+M4_BP_KO$Status <- "MPP4_KO"
+```
+```{r MPP4 GEO down}
+M4_TF_WT = enriched_M4WT$Gene_Perturbations_from_GEO_down
+M4_TF_WT = M4_TF_WT[order(M4_TF_WT$Adjusted.P.value), ]
+M4_TF_WT$Combined.Score <- -M4_TF_WT$Combined.Score
+M4_TF_WT$Status <- "MPP4_WT"
+M4_TF_KO = enriched_M4KO$Gene_Perturbations_from_GEO_down
+M4_TF_KO = M4_TF_KO[order(M4_TF_KO$Adjusted.P.value), ]
+M4_TF_KO$Status <- "MPP4_KO"
+```
+```{r M4 enrichR plot, message=FALSE}
+M4Co <- rbind(M4_TF_WT[c(1,2), ],
+              M4_TF_KO[c(1:3), ],
+              M4_Cell_WT[c(1:3), ],
+              M4_Cell_KO[c(1,2,4), ])
+
+M4Co$logpadj <- log10(M4Co$Adjusted.P.value)
+M4Co$setsize <- sapply(strsplit(M4Co$Overlap, '/'),"[[",1)
+
+M4_enrichr <- ggplot(M4Co) +
+  geom_point(aes(y=reorder(Term, -Combined.Score), x=-logpadj, color=Status, size = as.numeric(setsize))) +
+  theme_classic() +
+  scale_color_manual(values = c("#a8cddf","#1272ba"))
+print(M4_enrichr)
+ggsave("../figures/M4_enrichr.svg", dpi=300)
+```
+
+## Chapter 6 
+
+Cebpa GO heatmap.
+Extract DE genes that overlap with Cebpa signature. 
+```{r cebpa signature}
+GO_TF_trans <- read.csv("../data/GO_TF_trans.csv")
+Cebpa_GO_M3 <- resSig_M3[rownames(resSig_M3) %in% GO_TF_trans$Cebpa_ko_mouse_gse61468_creedsid_gene_1476_down,]
+Cebpa_GO_M4 <- resSig_M4[rownames(resSig_M4) %in% GO_TF_trans$Cebpa_ko_mouse_gse61468_creedsid_gene_1476_down,]
+shared_genes <- resSig_M3[rownames(resSig_M3) %in%  rownames(resSig_M4),]
+Cebpa_GO_shared <- shared_genes[rownames(shared_genes) %in% GO_TF_trans$Cebpa_ko_mouse_gse61468_creedsid_gene_1476_down,]
+```
+
+Create dataframe for MPP3, common and MPP4 DE genes that overlap with Cebpa signature.
+
+```{r cebpa_dataframe}
+M3_cebpa <- data.frame(gene = row.names(Cebpa_GO_M3))
+M3_cebpa$factor <- "M3"
+M4_cebpa <- data.frame(gene = row.names(Cebpa_GO_M4))
+M4_cebpa$factor <- "M4"
+common_cebpa <- data.frame(gene = row.names(Cebpa_GO_shared))
+
+cebpa_all <- rbind(M3_cebpa, M4_cebpa)
+cebpa_all[(cebpa_all$gene %in% common_cebpa$gene),]$factor <- 'common'
+cebpa_all <- cebpa_all[!duplicated(cebpa_all$gene),]
+cebpa_all$gene -> row.names(cebpa_all)
+cebpa_all$gene <- NULL 
+
+df_cebpa_GO <- merge (cebpa_all, norm_counts, by = "row.names")
+target <- c("M3", "common", "M4")
+df_cebpa_GO <- df_cebpa_GO %>% arrange(factor(factor, levels = target))
+rownames(df_cebpa_GO) = df_cebpa_GO$Row.names
+
+df_cebpa_GO_anno <- df_cebpa_GO[,c(1:2)]
+df_cebpa_GO_anno$Row.names <- NULL
+```
+
+Calculate z-scores separately for MPP3 and for MPP4 and plot heatmap. 
+```{r cebpa_heatmap}
+M3_GO_cebpa_Zscores <- as.data.frame(
+  t(apply(df_cebpa_GO[,c(3:10)], 1, function(x) (x-mean(x))/sd(x)) ))
+M4_GO_cebpa_Zscores <- as.data.frame(
+  t(apply(df_cebpa_GO[,c(11:18)], 1, function(x) (x-mean(x))/sd(x)) ))
+
+df_cebpa_GO_zscore <- cbind(M3_GO_cebpa_Zscores, M4_GO_cebpa_Zscores)
+df_cebpa_GO_zscore <- df_cebpa_GO_zscore[,c(5,6,7,8,1,2,3,4,13,14,15,16,9,10,11,12)]
+
+pal <- wes_palette(name = "Zissou1", 100, type = c("continuous"))
+
+pheatmap(as.matrix(df_cebpa_GO_zscore), cluster_cols=F, cluster_rows = F, cellwidth = 6, cellheight = 6,
+         treeheight_row = 0, annotation_row = df_cebpa_GO_anno, show_rownames = T,
+         color = pal, gaps_row = c(36, 53), gaps_col = c(8), 
+         filename = "../figures/GO_cebpa_down_MPP3_MPP4.pdf")
+```
+
+## Chapter 7
+
+Overlap of heatmaps with cebpa ChIP data.
+```{r loda cebpa chip}
+cebpa_unionpeaks_finalhits <- 
+  read.delim("../data/cebpa_unionpeaks_finalhits.bed", header=FALSE)
+cebpa_peaks_anno <- cebpa_unionpeaks_finalhits[, c(1:3,12:13,21:22)]
+cebpa_peaks_anno_dedup <- cebpa_peaks_anno[!duplicated(cebpa_peaks_anno$V22), ]
+colnames(cebpa_peaks_anno_dedup) <- c("chr","start","end","distTSS","feature","ENS","gene")
+```
+
+Which DRGs are cebpa targets?
+MPP3 DE genes
+```{r MPP3 DRG cebpa targets}
+M3ordered_DRG_mat_cebpa <- M3ordered_DRG_mat
+M3ordered_DRG_mat_cebpa$gene <- row.names(M3ordered_DRG_mat_cebpa)
+M3DRG_cebpa<-left_join(x=M3ordered_DRG_mat_cebpa,y=cebpa_peaks_anno_dedup,by="gene")
+M3DRG_cebpa[is.na(M3DRG_cebpa)] <- 0
+M3DRG_cebpa$chr[M3DRG_cebpa$chr > 0] <- 1
+identical(M3DRG_cebpa$gene, M3ordered_DRG_mat_cebpa$gene)
+M3DRG_cebpa$gene <- factor(M3DRG_cebpa$gene, levels = as.character(M3DRG_cebpa$gene))
+MPP3_DRG_cebpa_peak <- ggplot(M3DRG_cebpa, aes(x = 1, y = gene)) + 
+  geom_tile(aes(fill=chr)) +
+  scale_y_discrete(limits=rev) + scale_fill_manual(values = c("ivory2", "royalblue3")) +
+  theme_minimal() + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+ggsave("../figures/MPP3_DRG_zscore_heatmap_cebpa_peak.svg", dpi=300, width = 4, units = "in")
+```
+
+MPP4 DE genes
+```{r MPP4 DRG cebpa targets}
+M4ordered_DRG_mat_cebpa <- M4ordered_DRG_mat
+M4ordered_DRG_mat_cebpa$gene <- row.names(M4ordered_DRG_mat_cebpa)
+M4DRG_cebpa<-left_join(x=M4ordered_DRG_mat_cebpa,y=cebpa_peaks_anno_dedup,by="gene")
+M4DRG_cebpa[is.na(M4DRG_cebpa)] <- 0
+M4DRG_cebpa$chr[M4DRG_cebpa$chr > 0] <- 1
+identical(M4DRG_cebpa$gene, M4ordered_DRG_mat_cebpa$gene)
+M4DRG_cebpa$gene <- factor(M4DRG_cebpa$gene, levels = as.character(M4DRG_cebpa$gene))
+MPP4_DRG_cebpa_peak <- ggplot(M4DRG_cebpa, aes(x = 1, y = gene)) + 
+  geom_tile(aes(fill=chr)) +
+  scale_y_discrete(limits=rev) + scale_fill_manual(values = c("ivory2", "royalblue3")) +
+  theme_minimal() + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+ggsave("../figures/MPP4_DRG_zscore_heatmap_cebpa_peak.svg", dpi=300, width = 4, units = "in")
+```
+
+Which DE genes that overlap with cebpa signature genes are cebpa targets?
+```{r Cebpa signature cebpa targets}
+
+df_cebpa_GO_zscore_chip <- df_cebpa_GO_zscore
+df_cebpa_GO_zscore_chip$gene <- row.names(df_cebpa_GO_zscore_chip)
+
+sign_chip_cebpa<-left_join(x=df_cebpa_GO_zscore_chip,y=cebpa_peaks_anno_dedup,by="gene")
+sign_chip_cebpa[is.na(sign_chip_cebpa)] <- 0
+sign_chip_cebpa$chr[sign_chip_cebpa$chr > 0] <- 1
+identical(sign_chip_cebpa$gene, df_cebpa_GO_zscore_chip$gene)
+
+sign_chip_cebpa$gene <- factor(sign_chip_cebpa$gene, levels = as.character(sign_chip_cebpa$gene))
+Cebpa_sign_peak <- ggplot(sign_chip_cebpa, aes(x = 1, y = gene)) + 
+  geom_tile(aes(fill=chr)) +
+  scale_y_discrete(limits=rev(sign_chip_cebpa$gene)) + scale_fill_manual(values = c("ivory2", "royalblue3")) +
+  theme_minimal() + 
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+ggsave("../figures/GO_cebpa_down_Cebpa_sign_peak.svg", dpi=300)
+```

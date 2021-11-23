@@ -1,0 +1,13 @@
+rank	motif_DB	motif_ID	motif_alt_ID	consensus	p-value	adj_p-value	E-value	tests	FASTA_max	pos	neg	PWM_min	TP	%TP	FP	%FP
+1	../../data/ATAC/motifCluster/MPP4_KO_clus/MPP4_KO_clus_consensus_motifs.meme	Cluster_7	Klf1,KLF11,KLF16(...)	NVCCCCACCCHBY	3.67e-17	2.05e-14	1.64e-13	557	182	182	1092	1.54	112	61.54	314	28.75
+2	../../data/ATAC/motifCluster/MPP4_KO_clus/MPP4_KO_clus_consensus_motifs.meme	MA0528.2	ZNF263	VNGGGGAGGASG	8.34e-10	3.36e-7	2.69e-6	403	182	182	1092	1.02	94	51.65	308	28.21
+3	../../data/ATAC/motifCluster/MPP4_KO_clus/MPP4_KO_clus_consensus_motifs.meme	Cluster_6	EGR1,Wt1	VSMCGCCCACGCVS	3.75e-9	1.66e-6	1.32e-5	442	182	182	1092	1.55	79	43.41	241	22.07
+4	../../data/ATAC/motifCluster/MPP4_KO_clus/MPP4_KO_clus_consensus_motifs.meme	Cluster_1	ASCL1,ASCL1(var.2),MYOD1(...)	NNNRCAGGTGYNNN	2.03e-7	9.71e-5	7.77e-4	479	182	182	1092	1.22	93	51.10	340	31.14
+5	../../data/ATAC/motifCluster/MPP4_KO_clus/MPP4_KO_clus_consensus_motifs.meme	Cluster_5	CTCFL,KLF15,ZNF148	NSCAGGGGGCGGGGVR	7.78e-5	2.99e-2	2.39e-1	390	182	182	1092	3.74	38	20.88	111	10.16
+6	../../data/ATAC/motifCluster/MPP4_KO_clus/MPP4_KO_clus_consensus_motifs.meme	MA0632.2	TCFL5	KCACGCGCMC	5.16e-4	1.15e-1	9.21e-1	237	182	182	1092	5.4	14	7.69	25	2.29
+7	../../data/ATAC/motifCluster/MPP4_KO_clus/MPP4_KO_clus_consensus_motifs.meme	MA1650.1	ZBTB14	SSCCGCGCACVS	3.72e-2	1.00e0	8.00e0	239	182	182	1092	2.52	23	12.64	89	8.15
+8	../../data/ATAC/motifCluster/MPP4_KO_clus/MPP4_KO_clus_consensus_motifs.meme	Cluster_4	TFAP2A(var.2),TFAP2B,TFAP2C	YGCCCBVRGGCA	3.20e-1	1.00e0	8.00e0	422	182	182	1092	17.9	2	1.10	6	0.55
+
+# AME (Analysis of Motif Enrichment): Version 5.1.1 compiled on May 15 2020 at 15:14:37
+# The format of this file is described at http://meme-suite.org//doc/ame-output-format.html.
+# ame --o ../../data/ATAC/motifCluster/ameClus_MPP4KO --control --shuffle-- ../../data/ATAC/output/MPP4_KO.fna ../../data/ATAC/motifCluster/MPP4_KO_clus/MPP4_KO_clus_consensus_motifs.meme

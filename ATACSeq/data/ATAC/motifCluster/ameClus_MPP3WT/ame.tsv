@@ -1,0 +1,14 @@
+rank	motif_DB	motif_ID	motif_alt_ID	consensus	p-value	adj_p-value	E-value	tests	FASTA_max	pos	neg	PWM_min	TP	%TP	FP	%FP
+1	../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme	Cluster_14	ASCL1,ASCL1(var.2),BHLHE22(var.2)(...)	NNNRCAGGTGYNNN	1.70e-56	1.54e-53	2.16e-52	907	410	410	1230	1.74	324	79.02	428	34.80
+2	../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme	Cluster_8	EBF1,Ebf2,EBF3	NNTYCCCARGGGANN	5.14e-44	3.35e-41	4.69e-40	652	410	410	1230	3.12	195	47.56	161	13.09
+3	../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme	Cluster_13	Ascl2,ATOH1(var.2),Bhlha15(...)	NNVACAKMTGGNNN	3.64e-35	2.92e-32	4.09e-31	804	410	410	1230	2.92	220	53.66	254	20.65
+4	../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme	Cluster_1	ELF1,ELF3,ELF5(...)	NRRCAGGAAGTGVNN	1.10e-32	6.70e-30	9.39e-29	612	410	410	1230	1.6	208	50.73	239	19.43
+5	../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme	MA0599.1	KLF5	GCCCCDCCCH	2.80e-19	1.74e-16	2.43e-15	621	410	410	1230	8.58	112	27.32	108	8.78
+6	../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme	Cluster_11	Zic2,ZNF317,ZNF341	NNKMACAGCAGRNDG	4.17e-10	3.84e-7	5.38e-6	921	410	410	1230	1.72	200	48.78	389	31.63
+7	../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme	MA1652.1	ZKSCAN5	NNRGGARGTGAGRR	1.87e-9	8.44e-7	1.18e-5	451	410	410	1230	1.17	152	37.07	269	21.87
+8	../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme	Cluster_5	PBX3,PKNOX1	NNNTGAGTGACAGVNNN	1.34e-3	4.69e-1	6.56e0	471	410	410	1230	4.71	48	11.71	83	6.75
+9	../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme	MA0513.1	SMAD2::SMAD3::SMAD4	CTGTCTGDCACCT	2.53e-3	6.81e-1	9.53e0	451	410	410	1230	1.33	120	29.27	273	22.20
+
+# AME (Analysis of Motif Enrichment): Version 5.1.1 compiled on May 15 2020 at 15:14:37
+# The format of this file is described at http://meme-suite.org//doc/ame-output-format.html.
+# ame --o ../../data/ATAC/motifCluster/ameClus_MPP3WT --control --shuffle-- ../../data/ATAC/output/MPP3_WT.fna ../../data/ATAC/motifCluster/MPP3_WT_clus/MPP3_WT_clus_consensus_motifs.meme

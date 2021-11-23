@@ -1,0 +1,13 @@
+# Issue with rvcheck - clusterprofiler
+# After creating env, install devtools:
+# install.packages("devtools")
+# install_version("rvcheck", version = "0.1.8", repos = "http://cran.us.r-project.org")
+name: GOenv
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - bioconductor-clusterprofiler=4.0.0
+  - bioconductor-org.mm.eg.db=3.13.0
+  - r-msigdbr
+  - r-rvcheck=1.8.0

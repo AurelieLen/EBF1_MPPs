@@ -1,0 +1,102 @@
+---
+title: "Public data CLP_GMP GSE162607"
+author: "Aurelie Lenaerts"
+date: "15/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## load libraries
+
+```{r libraries, message=FALSE}
+library("DESeq2")
+library("ashr")
+```
+
+## Load and prepare data
+
+```{r count matrix, echo=FALSE}
+CLP_GMP_rawcounts <- read.delim("../data/CLP_GMP_rawcounts.tsv")
+genes.filtered <- read.delim("../data/genes.filtered.t2g", header=FALSE)
+rownames(CLP_GMP_rawcounts) <- CLP_GMP_rawcounts[, "X"]
+CLP_GMP_rawcounts <- CLP_GMP_rawcounts[, colnames(CLP_GMP_rawcounts) != "X"]
+CLP_GMP_rawcounts <- as.matrix(CLP_GMP_rawcounts)
+dim(CLP_GMP_rawcounts)
+```
+
+Create samplesheet and rowdata.
+```{r samplesheet}
+samplesheet <- data.frame(sampleName = colnames(CLP_GMP_rawcounts))
+rownames(samplesheet) <- samplesheet$sampleName
+state <- c(rep(0,length(samplesheet$sampleName)))
+for (i in 1:length(state))
+{
+  state[i] <- substr(as.character(samplesheet$sampleName[i]),1,nchar(as.character(samplesheet$sampleName[i]))-1)
+}
+samplesheet$state <- state
+
+length(unique(samplesheet$state))
+stopifnot(all(rownames(samplesheet) == colnames(CLP_GMP_rawcounts)))
+
+rowdata <- data.frame(ENSEMBL = rownames(CLP_GMP_rawcounts))
+rowdata  = merge(rowdata, genes.filtered,
+                by.x = "ENSEMBL", by.y = "V2",
+                all.x = TRUE, all.y = FALSE, sort = FALSE)
+rowdata <- rowdata[!duplicated(rowdata$ENSEMBL),]
+```
+
+Create variable of average counts across samples.
+```{r avg_cond}
+rowdata$max_avg_cond <- NA
+for(i in 1:nrow(rowdata)){
+  if(i %% 1000 == 0){
+    cat(i, " ") # print gene index with a step of 1000
+  }
+  gene <- rowdata$ENSEMBL[i]
+  conditions <- unique(samplesheet$state)
+  avg_conds <- unlist(lapply(conditions, function(cond){
+    mean(CLP_GMP_rawcounts[rownames(CLP_GMP_rawcounts) == gene, grepl(cond, colnames(CLP_GMP_rawcounts))])
+  }))
+  rowdata$max_avg_cond[i] <- max(avg_conds)
+}
+```
+
+Filter for genes with average counts greater than 100 and some data checks.
+
+```{r filter}
+avg_cond_thr <- 100
+selected_genes <- rowdata$ENSEMBL[rowdata$max_avg_cond > avg_cond_thr]
+
+CLP_GMP_rawcounts = CLP_GMP_rawcounts[order(rownames(CLP_GMP_rawcounts)),]
+rowdata = rowdata[order(rowdata$ENSEMBL),]
+stopifnot(all(rowdata$ENSEMBL == rownames(CLP_GMP_rawcounts)))
+dim(CLP_GMP_rawcounts)
+
+CLP_GMP_rawcounts <- CLP_GMP_rawcounts[rownames(CLP_GMP_rawcounts) %in% selected_genes, ]
+rowdata <- rowdata[rowdata$ENSEMBL %in% selected_genes, ]
+dim(CLP_GMP_rawcounts)
+stopifnot(all(rownames(CLP_GMP_rawcounts) == rowdata$ENSEMBL))
+
+rownames(CLP_GMP_rawcounts) <- rowdata$V3
+
+stopifnot(all(rownames(samplesheet) == colnames(CLP_GMP_rawcounts)))
+rownames(CLP_GMP_rawcounts)[rownames(CLP_GMP_rawcounts) == ""] 
+all(samplesheet$sampleName == colnames(CLP_GMP_rawcounts))
+```
+# we have 4 conditions and 10078 genes after the threshold
+
+## Perform DEseq2 with filtered count data. 
+
+```{r deseq, message=FALSE}
+dds <- DESeqDataSetFromMatrix(CLP_GMP_rawcounts, samplesheet, design= ~ state, rowData = rowdata)
+dds <- DESeq(dds)
+```
+
+```{r DE genes CLPvGMP, message=FALSE}
+resLFC_CLPvsGMP <- lfcShrink(dds, contrast = c("state", "CLP_rep", "GMP_rep"), type = "ashr")
+resLFC_CLPvsGMP <- resLFC_CLPvsGMP[order(resLFC_CLPvsGMP$log2FoldChange),]
+resSig0.05_CLPvGMP <- subset(resLFC_CLPvsGMP, padj < 0.05)
+write.table(resSig0.05_CLPvGMP, file = "../proc_data/CLPvGMP_results_padj0.05.tsv", quote = FALSE, sep = "\t")
+```

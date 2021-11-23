@@ -1,0 +1,34 @@
+rank	motif_DB	motif_ID	motif_alt_ID	consensus	p-value	adj_p-value	E-value	tests	FASTA_max	pos	neg	PWM_min	TP	%TP	FP	%FP
+1	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_29	Klf1,Klf12,KLF2(...)	VRCCMCRCCCHNHWH	1.31e-251	8.45e-248	3.55e-246	6437	8950	8950	8950	3.5	2386	26.66	710	7.93
+2	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_23	ELF2,ELK1,ELK3(...)	ANACCGGAAGTRVV	3.82e-244	1.11e-240	4.68e-239	2913	8950	8950	8950	1.03	2261	25.26	652	7.28
+3	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_28	KLF10,KLF11,KLF13(...)	MBHRGCCACGCCCMCHYNTG	1.57e-186	5.40e-183	2.27e-181	3441	8950	8950	8950	1.31	2289	25.58	834	9.32
+4	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_4	GATA1,GATA1::TAL1,GATA2(...)	HWNYCTTATCTNHNNNNHVCAG	9.78e-129	2.87e-125	1.21e-123	2935	8950	8950	8950	8.15	1012	11.31	223	2.49
+5	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_34	E2F6,KLF15,TFDP1	VVGGGCGGGAAVV	6.86e-123	4.13e-119	1.73e-117	6020	8950	8950	8950	3.02	1995	22.29	855	9.55
+6	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_32	MAZ,ZNF148,ZNF263	BSCYCCTCCCCSB	8.36e-107	6.73e-103	2.83e-101	8052	8950	8950	8950	3.22	2932	32.76	1657	18.51
+7	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	MA0506.1	NRF1	GCGCVTGCGCR	1.24e-91	2.78e-88	1.17e-86	2241	8950	8950	8950	24.7	490	5.47	54	0.60
+8	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_40	EGR1,EGR2,EGR3(...)	NCMCGCCCACGCMSWT	1.46e-84	6.00e-81	2.52e-79	4106	8950	8950	8950	1.24	2344	26.19	1301	14.54
+9	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_10	Arnt,ARNT2,Arntl(...)	NRTCACGTGMBB	5.80e-61	8.95e-58	3.76e-56	1543	8950	8950	8950	2.39	719	8.03	235	2.63
+10	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_25	EBF1,Ebf2,EBF3	NNTYCCCARGGGANN	2.19e-40	1.05e-36	4.41e-35	4793	8950	8950	8950	4.7	1104	12.34	588	6.57
+11	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_11	ARNT::HIF1A,HES1,HES2(...)	GBCACGYGCMC	1.78e-38	4.37e-35	1.84e-33	2462	8950	8950	8950	2.68	815	9.11	386	4.31
+12	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_33	Wt1,Znf281,ZNF740	CYBCCTCCCCCACMB	8.12e-39	4.52e-35	1.90e-33	5572	8950	8950	8950	5.7	1334	14.91	776	8.67
+13	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_1	CEBPA,CEBPB,CEBPD(...)	DNDATTGCAYAATHN	1.33e-35	3.87e-32	1.62e-30	2899	8950	8950	8950	5.06	740	8.27	347	3.88
+14	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	MA1573.1	THAP11	RRRACTACAWTTCCCAGMA	1.90e-33	6.58e-31	2.76e-29	347	8950	8950	8950	115	119	1.33	2	0.02
+15	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_3	FOXG1,FOXI1,FOXL1(...)	GTAAACAW	4.09e-33	1.06e-29	4.45e-28	2586	8950	8950	8950	1.4	1299	14.51	788	8.80
+16	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_13	YY1,YY2,ZFP42	NNNHCAARATGGCGGCSNBNN	8.48e-32	1.69e-28	7.11e-27	1997	8950	8950	8950	16.8	288	3.22	74	0.83
+17	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_2	POU3F4,POU5F1B	TATGCWAAT	4.19e-27	9.99e-24	4.20e-22	2385	8950	8950	8950	3.78	673	7.52	343	3.83
+18	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_8	BHLHE22(var.2),SNAI1,Tcf12(...)	NVCACCTGCNN	2.42e-27	1.73e-23	7.25e-22	7131	8950	8950	8950	2.7	2041	22.80	1469	16.41
+19	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	MA1116.1	RBPJ	BVTGGGAANN	3.75e-26	1.59e-22	6.69e-21	4242	8950	8950	8950	5.7	1224	13.68	781	8.73
+20	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_9	Creb3l2,CREB3L4	YGCCACGTCAYC	1.85e-25	2.85e-22	1.20e-20	1543	8950	8950	8950	1.09	917	10.25	539	6.02
+21	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_41	HINFP,ZBTB14	CASBGTGCGCGGSS	4.17e-21	1.06e-17	4.45e-16	2546	8950	8950	8950	2.17	840	9.39	510	5.70
+22	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_38	Zfx,ZNF460	SSSGCCTCVGCCTCCCRAG	1.72e-19	3.21e-16	1.35e-14	1863	8950	8950	8950	1.19	1079	12.06	719	8.03
+23	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_6	NFYA,NFYB,NFYC	BBRRCCAATCASM	1.57e-19	5.48e-16	2.30e-14	3496	8950	8950	8950	10.3	412	4.60	196	2.19
+24	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	MA0067.1	Pax2	NGTCAYKB	2.35e-17	1.45e-13	6.10e-12	6170	8950	8950	8950	1.72	1448	16.18	1058	11.82
+25	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_22	REL,RELA	GGGRMTTTCC	9.52e-15	2.40e-11	1.01e-9	2522	8950	8950	8950	3.06	657	7.34	414	4.63
+26	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_16	PAX1,PAX5,PAX9	NNSGTCACGCWTGASTGMM	3.68e-9	9.24e-7	3.88e-5	251	8950	8950	8950	1.14	171	1.91	80	0.89
+27	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	Cluster_18	MYB,OVOL2	NRNVTAACGGTHH	2.14e-9	2.54e-6	1.07e-4	1188	8950	8950	8950	1.9	433	4.84	279	3.12
+28	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	MA0006.1	Ahr::Arnt	YGCGTG	3.44e-9	1.15e-5	4.84e-4	3348	8950	8950	8950	1.5	1204	13.45	951	10.63
+29	../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme	MA0527.1	ZBTB33	BTCTCGCGAGABYTS	5.79e-8	4.19e-5	1.76e-3	723	8950	8950	8950	15.7	82	0.92	27	0.30
+
+# AME (Analysis of Motif Enrichment): Version 5.1.1 compiled on May 15 2020 at 15:14:37
+# The format of this file is described at http://meme-suite.org//doc/ame-output-format.html.
+# ame --o ../../data/ATAC_mpp3vmpp4/motifCluster/ameClus_MPP3 --control --shuffle-- ../../data/ATAC_mpp3vmpp4/output/MPP3.fna ../../data/ATAC_mpp3vmpp4/motifCluster/MPP3_clus/MPP3_clus_consensus_motifs.meme
