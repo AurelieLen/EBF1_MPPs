@@ -18,7 +18,6 @@ def do_qc(adata, min_genes = 1000, min_counts = 0, mt_frac = 0.1, species = "mou
     sc.pp.filter_cells(adata, min_counts = min_counts)
 
     print('Cells with mitochondrial counts> 10%:' + str(sum(adata.obs['mt_frac'] > 0.1)))
-    adata = adata[~(adata.obs['mt_frac'] > mt_frac),:]
 
     print("AFTER QC")
     qc_plots(adata, species = species)
