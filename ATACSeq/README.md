@@ -15,12 +15,16 @@ Notebooks:
   - ATAC.ipynb:  
     - preprocessing ( trimming, alignment )
     - differential accessibility
-    - basic plots (correlations, genomeTracks, heatMaps, GSEA/GO, RNA correlation)
+    - basic plots (correlations, genomeTracks, heatmaps, GSEA/GO, RNA correlation)
   - ATAC_motifs.ipynb:  
     - motif enrichments
     - motif clustering
     - co-occurence analysis
     - aggregation plots (footprinting)
+  - ATAC_OE.ipynb::
+    - preprocessing (trimming / alignment ) of LTHSC/overexpression data.
+    - heatmaps for LTHSC/overexpression data
+    - motif data for LTHSC/overexpression data (~= to ATAC_motifs notebook.)
   - Public_ChIP.ipynb:  
     - preprocessing (trimming, alignment) of public ChIP data (GSE107242 , GSE146128 , GSE59636)
     - enhancer prediction
