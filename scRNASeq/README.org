@@ -1,6 +1,8 @@
 * Analysis code for: /Lenaerts et al. 2022/
 
-This repository contains R and python script (easily converted to  Jupyter notebooks via Jupytext) used to perform scRNA-Seq analysis published in the /Lenaerts et al. 2022/ paper: "EBF1 limits myeloid fate of MPP3 and maintains the self-renewal capacity of HSCs" *(LINK)*
+This repository contains R and python script (easily converted to  Jupyter notebooks via Jupytext) used to perform scRNA-Seq analysis published in the /Lenaerts et al. 2022/ paper: "EBF1 primes B-lymphoid enhancers and limits the myeloid bias in murine multipotent progenitors"
+
+[![DOI:10.1084/jem.20212437](http://img.shields.io/badge/DOI-10.1084/jem.20212437-blue.svg)](https://doi.org/10.1084/jem.20212437)
 
 * How to use
 To reproduce the analysis presented in the paper:
