@@ -2,7 +2,7 @@
 
 This folder contains the code, scripts and environments used for the ATACSeq data.
 Single scripts reside in code/scripts, while analysis notebooks (jupyter) sit under code/books.
-Note that the notebooks refer to the single scripts where appropriate (relative path), and also refer to an LFS folder (Lenaerts_et_al_ATAC_LFS.tar) (available on zenodo: 10.5281/zenodo.5720286).
+Note that the notebooks refer to the single scripts where appropriate (relative path), and also refer to an LFS folder (Lenaerts_et_al_ATAC_LFS.tar) (available on zenodo: 10.5281/zenodo.5720285).
 
 A number of conda environments are used:
   - ATACofthesnake.yml: main environment for differential ATAC analysis (Note, pip install from the repository. https://github.com/WardDeb/ATACofthesnake)
